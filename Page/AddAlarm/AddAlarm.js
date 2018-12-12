@@ -4,30 +4,31 @@ import style from "./AlarmCss";
 import SetDays from "../../components/SetDays";
 import SaveAndQuit from "../../components/SaveAndQuit";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import { Calendar } from "react-native-calendars";
+import WixCalendar from "../../components/Calender";
 
 export default class AddAlarm extends Component {
-  state = {
-    visible: false
-  };
   render() {
-    const { navigation } = this.props;
+    const {
+      navigation,
+      visibleCalendar,
+      calendar,
+      setDate,
+      settedDate
+    } = this.props;
+    console.log(settedDate);
     return (
       <View style={style.container}>
         <SaveAndQuit navigation={navigation} />
         <View style={[style.bottomLine, { marginTop: -70 }]} />
-        <SetDays navigation={navigation} />
+        <SetDays navigation={navigation} onPress={visibleCalendar} />
         <View style={[style.bottomLine, { marginTop: -50 }]} />
         <View style={style.content} />
         <SlidingUpPanel
-          visible={this.state.visible}
-          onRequestClose={() =>
-            this.setState({
-              visible: false
-            })
-          }
+          visible={calendar}
+          onRequestClose={visibleCalendar}
+          height={1000}
         >
-          <Calendar />
+          <WixCalendar setDate={setDate} settedDate={settedDate} />
         </SlidingUpPanel>
       </View>
     );

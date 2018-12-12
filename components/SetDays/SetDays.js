@@ -3,10 +3,10 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import WixCalender from "../Calender";
 
-const SetDays = () => (
+const SetDays = ({ onPress }) => (
   <View style={style.calender}>
     <Text style={{ color: "white" }}>2018년 12월 12일</Text>
-    <TouchableOpacity>
+    <TouchableOpacity onPressOut={onPress}>
       <View style={{ flexDirection: "row" }}>
         <Text style={{ marginRight: 10, color: "white" }}>날짜 선택</Text>
         <AntDesign name="calendar" size={20} style={{ color: "white" }} />

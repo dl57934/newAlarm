@@ -9,4 +9,17 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AddAlarm);
+const mapDispatchToProps = dispatch => {
+  return {
+    setDate: bindActionCreators(actionCreators.setDate, dispatch),
+    visibleCalendar: bindActionCreators(
+      actionCreators.visibleCalendar,
+      dispatch
+    )
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddAlarm);

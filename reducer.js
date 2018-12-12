@@ -1,9 +1,10 @@
 const SET_DATE = "SET_DATE";
 const VISIBLE_CALENDAR = "VISIBLE_CALENDER";
 
-const setDate = () => {
+const setDate = date => {
   return {
-    type: SET_DATE
+    type: SET_DATE,
+    date
   };
 };
 
@@ -14,8 +15,8 @@ const visibleCalendar = () => {
 };
 
 const initialState = {
-  visibleCalendar: false,
-  setDate: ""
+  calendar: false,
+  settedDate: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,9 +30,29 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const applySetDate = state => {};
+const applySetDate = (state, action) => {
+  const setDate = action.date.dateString;
+  let jsonVariable = {};
+  jsonVariable[setDate] = {
+    selected: true,
+    marked: true,
+    selectedColor: "#00008C"
+  };
+  return {
+    ...state,
+    settedDate: {
+      ...state.settedDate,
+      ...jsonVariable
+    }
+  };
+};
 
-const applyVisibleCalender = state => {};
+const applyVisibleCalender = state => {
+  return {
+    ...state,
+    calendar: !state.calendar
+  };
+};
 
 export const actionCreators = {
   setDate,
