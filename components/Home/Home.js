@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default class Home extends Component {
+class Home extends Component {
   _getTime() {
     let date = new Date();
     let hours = date.getHours();
@@ -30,8 +30,6 @@ export default class Home extends Component {
     });
   }
 
-  
-
   render() {
     return (
       <View style={styles.container}>
@@ -43,14 +41,18 @@ export default class Home extends Component {
           <Text>here Alarm List</Text>
         </View>
         <View style={styles.down}>
-          <TouchableOpacity onPress={}>
-            <MaterialIcons name="add-alarm" size={80} color="white"  />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("AddAlarm")}
+          >
+            <MaterialIcons name="add-alarm" size={80} color="white" />
           </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
