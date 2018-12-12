@@ -1,5 +1,5 @@
-import Home from "./components/Home";
-import AddAlarm from "./components/AddAlarm";
+import Home from "./Page/Home";
+import AddAlarm from "./Page/AddAlarm";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const views = createStackNavigator(
