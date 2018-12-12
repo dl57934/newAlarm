@@ -13,7 +13,7 @@ class Home extends Component {
     let date = new Date();
     let hours = date.getHours();
     let minute = date.getMinutes();
-    hours > 12 ? (hours = hours - 12) : hours;
+    hours > 12 ? (hours = hours - 12) : hours === 0 ? (hours = 12) : hours;
     minute < 10 ? (minute = `0${minute}`) : minute;
     return `${hours}:${minute}`;
   }

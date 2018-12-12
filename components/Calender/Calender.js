@@ -1,5 +1,4 @@
 import { Calendar } from "react-native-calendars";
 
-const WixCalendar = () => (
-);
+const WixCalendar = () => {};
 export default WixCalendar;
