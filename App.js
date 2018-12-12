@@ -9,10 +9,6 @@ const views = createStackNavigator(
   },
   {
     initialRouteName: "HomeScreen",
-    backBehavior: "none",
-    swipeEnabled: false,
-    animationEnabled: false,
-    lazy: true,
     headerMode: "none"
   }
 );

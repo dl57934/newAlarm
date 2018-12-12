@@ -31,6 +31,7 @@ class Home extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -41,9 +42,7 @@ class Home extends Component {
           <Text>here Alarm List</Text>
         </View>
         <View style={styles.down}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("AddAlarm")}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("AddAlarm")}>
             <MaterialIcons name="add-alarm" size={80} color="white" />
           </TouchableOpacity>
         </View>
