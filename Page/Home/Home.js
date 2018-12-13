@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  StatusBar
+  StatusBar,
+  Picker
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 

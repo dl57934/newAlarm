@@ -9,6 +9,7 @@ const setDate = date => {
 };
 
 const visibleCalendar = () => {
+  console.log("hihi");
   return {
     type: VISIBLE_CALENDAR
   };

@@ -5,12 +5,19 @@ const style = StyleSheet.create({
     backgroundColor: "#00008C"
   },
   bottomLine: {
-    borderBottomColor: "black",
+    borderBottomColor: "yellow",
     borderBottomWidth: 2,
     width: "100%"
   },
   content: {
     flex: 5
+  },
+  pickers: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "stretch",
+    marginTop: "-5%"
   }
 });
 
