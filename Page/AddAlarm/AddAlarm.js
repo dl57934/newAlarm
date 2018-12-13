@@ -16,7 +16,8 @@ export default class AddAlarm extends Component {
       visibleCalendar,
       calendar,
       setDate,
-      settedDate
+      settedDate,
+      setTime
     } = this.props;
     return (
       <View style={style.container}>
@@ -26,7 +27,7 @@ export default class AddAlarm extends Component {
         <View style={[style.bottomLine, { marginTop: -50 }]} />
         <View style={style.content}>
           <View style={style.pickers}>
-            <Pickers />
+            <Pickers setTime={setTime} />
           </View>
           {/* <View style={[style.bottomLine, { marginTop: "-90%" }]} />
           <View style={{ flex: 1 }} /> */}

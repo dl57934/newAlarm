@@ -15,7 +15,8 @@ const mapDispatchToProps = dispatch => {
     visibleCalendar: bindActionCreators(
       actionCreators.visibleCalendar,
       dispatch
-    )
+    ),
+    setTime: bindActionCreators(actionCreators.setTime, dispatch)
   };
 };
 

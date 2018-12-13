@@ -1,5 +1,6 @@
 const SET_DATE = "SET_DATE";
 const VISIBLE_CALENDAR = "VISIBLE_CALENDER";
+const SET_TIME = "SET_TIME";
 
 const setDate = date => {
   return {
@@ -9,15 +10,22 @@ const setDate = date => {
 };
 
 const visibleCalendar = () => {
-  console.log("hihi");
   return {
     type: VISIBLE_CALENDAR
   };
 };
 
+const setTime = time => {
+  return {
+    type: SET_TIME,
+    time
+  };
+};
+
 const initialState = {
   calendar: false,
-  settedDate: {}
+  settedDate: {},
+  setTime: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,9 +34,18 @@ const reducer = (state = initialState, action) => {
       return applySetDate(state, action);
     case VISIBLE_CALENDAR:
       return applyVisibleCalender(state, action);
+    case SET_TIME:
+      return applySetTime(state, action);
     default:
       return state;
   }
+};
+
+const applySetTime = (state, action) => {
+  return {
+    ...state,
+    setTime: action.time
+  };
 };
 
 const applySetDate = (state, action) => {
@@ -39,7 +56,6 @@ const applySetDate = (state, action) => {
     marked: true,
     selectedColor: "#00008C"
   };
-  console.log();
   if (state.settedDate.hasOwnProperty(setDate)) {
     jsonVariable[setDate] = undefined;
   }
@@ -61,7 +77,8 @@ const applyVisibleCalender = state => {
 
 export const actionCreators = {
   setDate,
-  visibleCalendar
+  visibleCalendar,
+  setTime
 };
 
 export default reducer;
