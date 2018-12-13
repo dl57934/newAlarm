@@ -23,10 +23,11 @@ export default class AddAlarm extends Component {
         <SetDays navigation={navigation} onPress={visibleCalendar} />
         <View style={[style.bottomLine, { marginTop: -50 }]} />
         <View style={style.content} />
+
         <SlidingUpPanel
           visible={calendar}
           onRequestClose={visibleCalendar}
-          height={1000}
+          startCollapsed
         >
           <WixCalendar setDate={setDate} settedDate={settedDate} />
         </SlidingUpPanel>

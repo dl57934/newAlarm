@@ -38,6 +38,10 @@ const applySetDate = (state, action) => {
     marked: true,
     selectedColor: "#00008C"
   };
+  console.log();
+  if (state.settedDate.hasOwnProperty(setDate)) {
+    jsonVariable[setDate] = undefined;
+  }
   return {
     ...state,
     settedDate: {

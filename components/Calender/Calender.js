@@ -1,5 +1,6 @@
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import React from "react";
+import { View, StyleSheet } from "react-native";
 
 LocaleConfig.locales["ko"] = {
   monthNames: [
@@ -36,18 +37,27 @@ LocaleConfig.locales["ko"] = {
 
 LocaleConfig.defaultLocale = "ko";
 const WixCalendar = ({ setDate, settedDate }) => {
-  console.log(settedDate);
   return (
-    <Calendar
-      LocaleConfig={LocaleConfig}
-      minDate={Date()}
-      onDayPress={day => {
-        setDate(day);
-      }}
-      markedDates={settedDate}
-      // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-      markingType="simple"
-    />
+    <View style={style.test}>
+      <Calendar
+        LocaleConfig={LocaleConfig}
+        minDate={Date()}
+        onDayPress={day => {
+          setDate(day);
+        }}
+        markedDates={settedDate}
+        // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+        markingType="simple"
+      />
+    </View>
   );
 };
+
+const style = StyleSheet.create({
+  test: {
+    flexDirection: "column",
+    marginTop: "70%"
+  }
+});
+
 export default WixCalendar;
