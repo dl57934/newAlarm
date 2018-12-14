@@ -12,12 +12,16 @@ const style = StyleSheet.create({
   content: {
     flex: 5
   },
-  pickers: {
+  iosPickers: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "stretch",
     marginTop: "-5%"
+  },
+  androidPickers: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center"
   }
 });
 

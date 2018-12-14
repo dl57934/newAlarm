@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Picker } from "react-native";
+import { Picker, View } from "react-native";
 const hours = [];
 const minutes = [];
 for (let i = 1; i <= 12; i++) hours.push(i);
@@ -21,11 +21,10 @@ class Pickers extends Component {
     let { type, setHour, setMinute } = this.state;
     const { setTime } = this.props;
     return (
-      <Fragment>
+      <View style={{ flexDirection: "row" }}>
         <Picker
-          style={{ height: 50, width: 100 }}
+          style={{ height: 50, width: 100, color: "white" }}
           itemStyle={{ color: "white" }}
-          mode="dialog"
           selectedValue={type}
           onValueChange={(itemValue, itemIndex) => {
             setTime(`${itemValue} ${setHour} ${setMinute}`);
@@ -38,9 +37,8 @@ class Pickers extends Component {
           <Picker.Item label="PM" value="PM" />
         </Picker>
         <Picker
-          style={{ height: 50, width: 100 }}
+          style={{ height: 50, width: 100, color: "white" }}
           itemStyle={{ color: "white" }}
-          mode="dialog"
           selectedValue={setHour}
           onValueChange={(itemValue, itemIndex) => {
             setTime(`${type} ${itemValue} ${setMinute}`);
@@ -58,9 +56,8 @@ class Pickers extends Component {
           ))}
         </Picker>
         <Picker
-          style={{ height: 50, width: 100 }}
+          style={{ height: 50, width: 100, color: "white" }}
           itemStyle={{ color: "white" }}
-          mode="dialog"
           selectedValue={setMinute}
           onValueChange={(itemValue, itemIndex) => {
             setTime(`${type} ${setHour} ${itemValue}`);
@@ -77,7 +74,7 @@ class Pickers extends Component {
             />
           ))}
         </Picker>
-      </Fragment>
+      </View>
     );
   }
 }

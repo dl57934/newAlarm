@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Picker, TextInput, Text } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import style from "./AlarmCss";
 import SetDays from "../../components/SetDays";
 import SaveAndQuit from "../../components/SaveAndQuit";
@@ -10,8 +10,6 @@ import DayOfWeek from "../../components/DayOfWeek";
 import MusicSelectorButton from "../../components/MusicSelectorButton";
 
 export default class AddAlarm extends Component {
-  componentWillMount() {}
-
   render() {
     const {
       navigation,
@@ -24,14 +22,18 @@ export default class AddAlarm extends Component {
     return (
       <View style={style.container}>
         <SaveAndQuit navigation={navigation} />
-        <View style={[style.bottomLine, { marginTop: -70 }]} />
+        <View style={[style.bottomLine, { marginTop: "-20%" }]} />
         <SetDays onPress={visibleCalendar} />
-        <View style={[{ marginTop: -50 }, style.bottomLine]} />
+        <View style={[{ marginTop: "-14%" }, style.bottomLine]} />
         <View style={style.content}>
-          <View style={style.pickers}>
+          <View
+            style={
+              Platform.OS === "ios" ? style.iosPickers : style.androidPickers
+            }
+          >
             <Pickers setTime={setTime} />
           </View>
-          <View style={[{ marginTop: -230 }]} />
+          <View style={[{ marginTop: "-55%" }]} />
           <DayOfWeek />
           <View style={[style.bottomLine, { borderBottomColor: "black" }]} />
           <View style={{ flex: 1 }}>

@@ -2,9 +2,20 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, TouchableOpacity, Text } from "react-native";
 import RF from "react-native-responsive-fontsize";
+import { DocumentPicker, ImagePicker, AudioPicker } from "expo";
+
+const _pickDocument = async () => {
+  let result = await DocumentPicker.getDocumentAsync({
+    type: "audio/*",
+    copyToCacheDirectory: false
+  });
+  alert(result.uri);
+  console.log(result);
+};
+
 const MusicSelectorButton = ({ navigation }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("MusicSelector")}>
+    <TouchableOpacity onPress={() => _pickDocument()}>
       <View
         style={{
           alignItems: "center",
