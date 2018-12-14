@@ -7,7 +7,7 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import WixCalendar from "../../components/Calender";
 import Pickers from "../../components/Pickers";
 import DayOfWeek from "../../components/DayOfWeek";
-import MusicSelector from "../../components/MusicSelector";
+import MusicSelectorButton from "../../components/MusicSelectorButton";
 
 export default class AddAlarm extends Component {
   componentWillMount() {}
@@ -25,7 +25,7 @@ export default class AddAlarm extends Component {
       <View style={style.container}>
         <SaveAndQuit navigation={navigation} />
         <View style={[style.bottomLine, { marginTop: -70 }]} />
-        <SetDays navigation={navigation} onPress={visibleCalendar} />
+        <SetDays onPress={visibleCalendar} />
         <View style={[{ marginTop: -50 }, style.bottomLine]} />
         <View style={style.content}>
           <View style={style.pickers}>
@@ -35,7 +35,7 @@ export default class AddAlarm extends Component {
           <DayOfWeek />
           <View style={[style.bottomLine, { borderBottomColor: "black" }]} />
           <View style={{ flex: 1 }}>
-            <MusicSelector />
+            <MusicSelectorButton navigation={navigation} />
             <View style={[style.bottomLine]} />
           </View>
         </View>

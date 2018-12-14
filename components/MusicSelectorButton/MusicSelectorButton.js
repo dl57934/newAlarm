@@ -2,9 +2,9 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, TouchableOpacity, Text } from "react-native";
 import RF from "react-native-responsive-fontsize";
-const MusicSelector = () => {
+const MusicSelectorButton = ({ navigation }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("MusicSelector")}>
       <View
         style={{
           alignItems: "center",
@@ -31,4 +31,4 @@ const MusicSelector = () => {
   );
 };
 
-export default MusicSelector;
+export default MusicSelectorButton;
