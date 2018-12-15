@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const SetDays = ({ onPress }) => (
+const SetDaysButton = ({ onPress }) => (
   <View style={style.calender}>
     <Text style={{ color: "white" }}>12월 13일</Text>
     <TouchableOpacity onPressOut={onPress}>
@@ -25,4 +25,4 @@ const style = StyleSheet.create({
   }
 });
 
-export default SetDays;
+export default SetDaysButton;

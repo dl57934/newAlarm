@@ -2,7 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const SaveAndQuit = ({ navigation }) => (
+const SaveAndQuitButton = ({ navigation }) => (
   <View style={style.upper}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
       <AntDesign name="back" size={40} style={{ color: "white" }} />
@@ -13,7 +13,7 @@ const SaveAndQuit = ({ navigation }) => (
   </View>
 );
 
-export default SaveAndQuit;
+export default SaveAndQuitButton;
 
 const style = StyleSheet.create({
   upper: {

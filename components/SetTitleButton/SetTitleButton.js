@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import RF from "react-native-responsive-fontsize";
-import { Entypo, TextInput } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default class SetTitleButton extends Component {
   componentWillMount() {

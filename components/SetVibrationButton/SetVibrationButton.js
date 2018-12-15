@@ -1,15 +1,26 @@
 import React, { Component, Fragment } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Vibration } from "react-native";
 import RF from "react-native-responsive-fontsize";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-export default class SetRepeat extends Component {
+export default class SetVibrationButton extends Component {
+  componentWillReceiveProps(newProps) {
+    if (newProps.vibration) {
+      Vibration.vibrate(1000);
+    }
+  }
+
   render() {
+    const { vibration, setVibration } = this.props;
     return (
       <View
         style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setVibration();
+          }}
+        >
           <View style={{ alignItems: "center" }}>
             <View
               style={{
@@ -17,7 +28,7 @@ export default class SetRepeat extends Component {
                 marginBottom: "3%"
               }}
             >
-              <FontAwesome name="repeat" size={RF(2.7)} color="white" />
+              <MaterialIcons name="vibration" size={RF(2.7)} color="white" />
               <Text
                 style={{
                   color: "white",
@@ -26,10 +37,12 @@ export default class SetRepeat extends Component {
                   fontWeight: "600"
                 }}
               >
-                반복도 정하기
+                진동
               </Text>
             </View>
-            <Text style={{ color: "white", fontSize: RF(1.7) }}>(설정)</Text>
+            <Text style={{ color: "white", fontSize: RF(1.7) }}>
+              ({vibration ? "설정 완료" : "설정 안 함"})
+            </Text>
           </View>
         </TouchableOpacity>
       </View>

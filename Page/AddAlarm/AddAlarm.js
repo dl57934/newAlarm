@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Platform } from "react-native";
 import style from "./AlarmCss";
-import SetDays from "../../components/SetDays";
-import SaveAndQuit from "../../components/SaveAndQuit";
+import SetDaysButton from "../../components/SetDaysButton";
+import SaveAndQuitButton from "../../components/SaveAndQuitButton";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import WixCalendar from "../../components/Calender";
 import Pickers from "../../components/Pickers";
 import DayOfWeek from "../../components/DayOfWeek";
 import MusicSelectorButton from "../../components/MusicSelectorButton";
 import SetTitleButton from "../../components/SetTitleButton";
+import SetRepeatButton from "../../components/SetRepeatButton";
 import SetTitle from "../../components/SetTitle";
-import SetVibration from "../../components/SetVibration";
-import SetRepeat from "../../components/SetRepeat";
+import SetVibrationButton from "../../components/SetVibrationButton";
 
 export default class AddAlarm extends Component {
   render() {
@@ -33,9 +33,9 @@ export default class AddAlarm extends Component {
     } = this.props;
     return (
       <View style={style.container}>
-        <SaveAndQuit navigation={navigation} />
+        <SaveAndQuitButton navigation={navigation} />
         <View style={[style.bottomLine, { marginTop: "-18%" }]} />
-        <SetDays onPress={visibleCalendar} />
+        <SetDaysButton onPress={visibleCalendar} />
         <View style={[{ marginTop: "-12%" }, style.bottomLine]} />
         <View style={style.content}>
           <View
@@ -51,9 +51,12 @@ export default class AddAlarm extends Component {
           <View style={[style.bottomLine]} />
           <MusicSelectorButton musicInfo={musicInfo} setMusic={setMusic} />
           <View style={[style.bottomLine]} />
-          <SetVibration vibration={vibration} setVibration={setVibration} />
+          <SetVibrationButton
+            vibration={vibration}
+            setVibration={setVibration}
+          />
           <View style={[style.bottomLine]} />
-          <SetRepeat />
+          <SetRepeatButton />
         </View>
         <SlidingUpPanel
           visible={calendar}
