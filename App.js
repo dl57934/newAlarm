@@ -1,6 +1,6 @@
 import Home from "./Page/Home";
 import AddAlarm from "./Page/AddAlarm";
-import MusicSelector from "./Page/MusicSelector";
+import SetRepeat from "./Page/SetRepeat";
 import React, { Component } from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { createStore } from "redux";
@@ -13,10 +13,10 @@ const View = createStackNavigator(
   {
     Home: { screen: Home },
     AddAlarm: { screen: AddAlarm },
-    MusicSelector: { screen: MusicSelector }
+    SetRepeat: { screen: SetRepeat }
   },
   {
-    initialRouteName: "AddAlarm",
+    initialRouteName: "SetRepeat",
     headerMode: "none"
   }
 );

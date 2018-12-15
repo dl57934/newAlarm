@@ -26,7 +26,6 @@ const visibleCalendar = () => {
 };
 
 const visibleSetTitle = () => {
-  console.log("hihi");
   return {
     type: VISIBLE_SET_TITLE
   };
@@ -99,7 +98,8 @@ const applyVisibleSetTitle = (state, action) => {
 };
 
 const applySetTitle = (state, action) => {
-  if ((state.title !== undefined, action.title === undefined)) {
+  console.log(action.title);
+  if ((state.title !== undefined, action.title === "")) {
     return {
       ...state
     };

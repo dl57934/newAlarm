@@ -21,6 +21,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-around",
-    marginTop: 40
+    marginTop: "10%",
+    marginBottom: "-10%"
   }
 });

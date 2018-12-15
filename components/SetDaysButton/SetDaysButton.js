@@ -1,14 +1,28 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import RF from "react-native-responsive-fontsize";
+
+const date = new Date();
 
 const SetDaysButton = ({ onPress }) => (
-  <View style={style.calender}>
-    <Text style={{ color: "white" }}>12월 13일</Text>
+  <View
+    style={[
+      style.calender,
+      {
+        backgroundColor: "#000070",
+        paddingTop: RF(2.7),
+        paddingBottom: RF(2.7)
+      }
+    ]}
+  >
+    <Text style={{ color: "white" }}>
+      {`${date.getMonth() + 1}월  ${date.getDate()}일`}
+    </Text>
     <TouchableOpacity onPressOut={onPress}>
       <View style={{ flexDirection: "row" }}>
-        <Text style={{ marginRight: 10, color: "white" }}>날짜 선택</Text>
-        <AntDesign name="calendar" size={20} style={{ color: "white" }} />
+        <Text style={{ marginRight: "5%", color: "white" }}>날짜 선택</Text>
+        <AntDesign name="calendar" size={RF(2)} style={{ color: "white" }} />
       </View>
     </TouchableOpacity>
   </View>
@@ -16,7 +30,6 @@ const SetDaysButton = ({ onPress }) => (
 
 const style = StyleSheet.create({
   calender: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "space-around",
     flexDirection: "row",

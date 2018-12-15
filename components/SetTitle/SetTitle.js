@@ -18,7 +18,8 @@ export default class SetTitle extends Component {
         style={{
           flex: 1,
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          backgroundColor: "white"
         }}
       >
         <TextInput
@@ -27,14 +28,14 @@ export default class SetTitle extends Component {
             width: "50%",
             borderColor: "gray",
             borderWidth: 1,
-            color: "white"
+            color: "#00008C"
           }}
           onChangeText={text => this.setState({ text })}
           value={this.state.text}
         />
         <Button
-          title="Learn More"
-          color=""
+          title="완료"
+          color="#00008C"
           onPress={() => this._onClick(visibleSetTitleView, setTitle)}
         />
       </View>

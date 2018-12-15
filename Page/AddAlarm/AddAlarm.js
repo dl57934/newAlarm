@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform, StatusBar } from "react-native";
 import style from "./AlarmCss";
 import SetDaysButton from "../../components/SetDaysButton";
 import SaveAndQuitButton from "../../components/SaveAndQuitButton";
@@ -33,10 +33,9 @@ export default class AddAlarm extends Component {
     } = this.props;
     return (
       <View style={style.container}>
+        <StatusBar hidden />
         <SaveAndQuitButton navigation={navigation} />
-        <View style={[style.bottomLine, { marginTop: "-18%" }]} />
         <SetDaysButton onPress={visibleCalendar} />
-        <View style={[{ marginTop: "-12%" }, style.bottomLine]} />
         <View style={style.content}>
           <View
             style={
@@ -56,7 +55,7 @@ export default class AddAlarm extends Component {
             setVibration={setVibration}
           />
           <View style={[style.bottomLine]} />
-          <SetRepeatButton />
+          <SetRepeatButton navigation={navigation} />
         </View>
         <SlidingUpPanel
           visible={calendar}

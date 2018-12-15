@@ -4,11 +4,12 @@ import RF from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
 class SetRepeatButton extends Component {
   render() {
+    const { navigation } = this.props;
     return (
       <View
         style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPressOut={() => navigation.navigate("SetRepeat")}>
           <View style={{ alignItems: "center" }}>
             <View
               style={{
