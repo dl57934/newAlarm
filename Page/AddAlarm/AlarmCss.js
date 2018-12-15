@@ -21,7 +21,9 @@ const style = StyleSheet.create({
   androidPickers: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: "10%",
+    marginBottom: "-16%"
   }
 });
 

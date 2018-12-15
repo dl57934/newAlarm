@@ -16,7 +16,7 @@ const View = createStackNavigator(
     MusicSelector: { screen: MusicSelector }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "AddAlarm",
     headerMode: "none"
   }
 );

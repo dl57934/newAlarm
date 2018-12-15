@@ -1,6 +1,9 @@
 const SET_DATE = "SET_DATE";
 const VISIBLE_CALENDAR = "VISIBLE_CALENDER";
+const VISIBLE_SET_TITLE = "VISIBLE_TITLE";
 const SET_TIME = "SET_TIME";
+const SET_MUSIC = "SET_MUSIC";
+const SET_TITLE = "SET_TITLE";
 
 const setDate = date => {
   return {
@@ -15,6 +18,13 @@ const visibleCalendar = () => {
   };
 };
 
+const visibleSetTitle = () => {
+  console.log("hihi");
+  return {
+    type: VISIBLE_SET_TITLE
+  };
+};
+
 const setTime = time => {
   return {
     type: SET_TIME,
@@ -22,10 +32,27 @@ const setTime = time => {
   };
 };
 
+const setMusic = music => {
+  return {
+    type: SET_MUSIC,
+    music
+  };
+};
+
+const setTitle = title => {
+  return {
+    type: SET_TITLE,
+    title
+  };
+};
+
 const initialState = {
   calendar: false,
   settedDate: {},
-  setTime: []
+  setTime: [],
+  musicInfo: { uri: undefined, name: "설정 안 함" },
+  title: "설정 안 함",
+  visibleTitle: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,8 +63,47 @@ const reducer = (state = initialState, action) => {
       return applyVisibleCalender(state, action);
     case SET_TIME:
       return applySetTime(state, action);
+    case SET_MUSIC:
+      return applySetMusic(state, action);
+    case SET_TITLE:
+      return applySetTitle(state, action);
+    case VISIBLE_SET_TITLE:
+      return applyVisibleSetTitle(state, action);
     default:
       return state;
+  }
+};
+
+const applyVisibleSetTitle = (state, action) => {
+  return {
+    ...state,
+    visibleTitle: !state.visibleTitle
+  };
+};
+
+const applySetTitle = (state, action) => {
+  if ((state.title !== undefined, action.title === undefined)) {
+    return {
+      ...state
+    };
+  } else {
+    return {
+      ...state,
+      title: action.title
+    };
+  }
+};
+
+const applySetMusic = (state, action) => {
+  if ((state.musicInfo !== undefined, action.music.name === undefined)) {
+    return {
+      ...state
+    };
+  } else {
+    return {
+      ...state,
+      musicInfo: action.music
+    };
   }
 };
 
@@ -78,7 +144,10 @@ const applyVisibleCalender = state => {
 export const actionCreators = {
   setDate,
   visibleCalendar,
-  setTime
+  setTime,
+  setMusic,
+  setTitle,
+  visibleSetTitle
 };
 
 export default reducer;

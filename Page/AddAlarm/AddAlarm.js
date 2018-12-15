@@ -8,6 +8,8 @@ import WixCalendar from "../../components/Calender";
 import Pickers from "../../components/Pickers";
 import DayOfWeek from "../../components/DayOfWeek";
 import MusicSelectorButton from "../../components/MusicSelectorButton";
+import SetTitleButton from "../../components/SetTitleButton";
+import SetTitle from "../../components/SetTitle";
 
 export default class AddAlarm extends Component {
   render() {
@@ -15,16 +17,22 @@ export default class AddAlarm extends Component {
       navigation,
       visibleCalendar,
       calendar,
+      title,
+      visibleTitle,
+      musicInfo,
       setDate,
       settedDate,
-      setTime
+      setTime,
+      setMusic,
+      setTitle,
+      visibleSetTitle
     } = this.props;
     return (
       <View style={style.container}>
         <SaveAndQuit navigation={navigation} />
-        <View style={[style.bottomLine, { marginTop: "-20%" }]} />
+        <View style={[style.bottomLine, { marginTop: "-18%" }]} />
         <SetDays onPress={visibleCalendar} />
-        <View style={[{ marginTop: "-14%" }, style.bottomLine]} />
+        <View style={[{ marginTop: "-12%" }, style.bottomLine]} />
         <View style={style.content}>
           <View
             style={
@@ -33,13 +41,11 @@ export default class AddAlarm extends Component {
           >
             <Pickers setTime={setTime} />
           </View>
-          <View style={[{ marginTop: "-55%" }]} />
           <DayOfWeek />
-          <View style={[style.bottomLine, { borderBottomColor: "black" }]} />
-          <View style={{ flex: 1 }}>
-            <MusicSelectorButton navigation={navigation} />
-            <View style={[style.bottomLine]} />
-          </View>
+          <View style={[style.bottomLine]} />
+          <SetTitleButton title={title} visibleSetTitleView={visibleSetTitle} />
+          <View style={[style.bottomLine]} />
+          <MusicSelectorButton musicInfo={musicInfo} setMusic={setMusic} />
         </View>
 
         <SlidingUpPanel
@@ -48,6 +54,9 @@ export default class AddAlarm extends Component {
           startCollapsed
         >
           <WixCalendar setDate={setDate} settedDate={settedDate} />
+        </SlidingUpPanel>
+        <SlidingUpPanel visible={visibleTitle}>
+          <SetTitle visibleSetTitleView={visibleSetTitle} setTitle={setTitle} />
         </SlidingUpPanel>
       </View>
     );

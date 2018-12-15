@@ -29,9 +29,14 @@ export default class DayOfWeek extends Component {
   };
   render() {
     return (
-      <View style={{ backgroundColor: "#ffff", paddingTop: "2%" }}>
+      <View style={{ backgroundColor: "#ffff", paddingTop: "2%", flex: 1 }}>
         <Text
-          style={{ fontSize: RF(3.1), marginBottom: "3%", fontWeight: "600" }}
+          style={{
+            fontSize: RF(3.1),
+            marginBottom: "3%",
+            fontWeight: "600",
+            marginLeft: "4%"
+          }}
         >
           반복 요일
         </Text>
