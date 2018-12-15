@@ -16,9 +16,9 @@ export default class SetRepeat extends Component {
     };
   }
 
-  _intervalCheck(intervalIndex, intervalCheck) {
+  _intervalCheck(intervalIndex) {
     this.setState({
-      intervalCheck
+      intervalIndex
     });
   }
 
@@ -57,6 +57,7 @@ export default class SetRepeat extends Component {
                     borderColor: "#00008C",
                     color: "white"
                   }}
+                  onPress={() => this._intervalCheck(index)}
                   checked={intervalIndex === index ? intervalCheck : undefined}
                   uncheckedColor="white"
                   checkedColor="yellow"
@@ -84,6 +85,7 @@ export default class SetRepeat extends Component {
                 <CheckBox
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
+                  onPress={() => this._repeatCheck(index)}
                   checked={index === repeatIndex ? repeatCheck : undefined}
                   containerStyle={{
                     backgroundColor: "#00008C",
