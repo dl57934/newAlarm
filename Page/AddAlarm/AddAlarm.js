@@ -10,6 +10,8 @@ import DayOfWeek from "../../components/DayOfWeek";
 import MusicSelectorButton from "../../components/MusicSelectorButton";
 import SetTitleButton from "../../components/SetTitleButton";
 import SetTitle from "../../components/SetTitle";
+import SetVibration from "../../components/SetVibration";
+import SetRepeat from "../../components/SetRepeat";
 
 export default class AddAlarm extends Component {
   render() {
@@ -20,12 +22,14 @@ export default class AddAlarm extends Component {
       title,
       visibleTitle,
       musicInfo,
+      vibration,
       setDate,
       settedDate,
       setTime,
       setMusic,
       setTitle,
-      visibleSetTitle
+      visibleSetTitle,
+      setVibration
     } = this.props;
     return (
       <View style={style.container}>
@@ -42,12 +46,15 @@ export default class AddAlarm extends Component {
             <Pickers setTime={setTime} />
           </View>
           <DayOfWeek />
-          <View style={[style.bottomLine]} />
           <SetTitleButton title={title} visibleSetTitleView={visibleSetTitle} />
+
           <View style={[style.bottomLine]} />
           <MusicSelectorButton musicInfo={musicInfo} setMusic={setMusic} />
+          <View style={[style.bottomLine]} />
+          <SetVibration vibration={vibration} setVibration={setVibration} />
+          <View style={[style.bottomLine]} />
+          <SetRepeat />
         </View>
-
         <SlidingUpPanel
           visible={calendar}
           onRequestClose={visibleCalendar}

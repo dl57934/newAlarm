@@ -4,6 +4,13 @@ const VISIBLE_SET_TITLE = "VISIBLE_TITLE";
 const SET_TIME = "SET_TIME";
 const SET_MUSIC = "SET_MUSIC";
 const SET_TITLE = "SET_TITLE";
+const SET_VIBRATION = "SET_VIBRATION";
+
+const setVibration = () => {
+  return {
+    type: SET_VIBRATION
+  };
+};
 
 const setDate = date => {
   return {
@@ -52,7 +59,8 @@ const initialState = {
   setTime: [],
   musicInfo: { uri: undefined, name: "설정 안 함" },
   title: "설정 안 함",
-  visibleTitle: false
+  visibleTitle: false,
+  vibration: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -69,9 +77,18 @@ const reducer = (state = initialState, action) => {
       return applySetTitle(state, action);
     case VISIBLE_SET_TITLE:
       return applyVisibleSetTitle(state, action);
+    case SET_VIBRATION:
+      return applySetVibration(state, action);
     default:
       return state;
   }
+};
+
+const applySetVibration = (state, action) => {
+  return {
+    ...state,
+    vibration: !state.vibration
+  };
 };
 
 const applyVisibleSetTitle = (state, action) => {
@@ -147,7 +164,8 @@ export const actionCreators = {
   setTime,
   setMusic,
   setTitle,
-  visibleSetTitle
+  visibleSetTitle,
+  setVibration
 };
 
 export default reducer;

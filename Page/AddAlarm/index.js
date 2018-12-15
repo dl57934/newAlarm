@@ -22,7 +22,8 @@ const mapDispatchToProps = dispatch => {
     visibleSetTitle: bindActionCreators(
       actionCreators.visibleSetTitle,
       dispatch
-    )
+    ),
+    setVibration: bindActionCreators(actionCreators.setVibration, dispatch)
   };
 };
 

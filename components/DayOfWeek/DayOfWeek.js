@@ -29,7 +29,13 @@ export default class DayOfWeek extends Component {
   };
   render() {
     return (
-      <View style={{ backgroundColor: "#ffff", paddingTop: "2%", flex: 1 }}>
+      <View
+        style={{
+          backgroundColor: "#ffff",
+          paddingTop: "2%",
+          paddingBottom: "3%"
+        }}
+      >
         <Text
           style={{
             fontSize: RF(3.1),

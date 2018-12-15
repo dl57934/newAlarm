@@ -11,7 +11,7 @@ export default class SetTitleButton extends Component {
   }
 
   render() {
-    const { visibleSetTitleView, title, setTitle } = this.props;
+    const { visibleSetTitleView, title } = this.props;
     return (
       <Fragment>
         <TouchableOpacity
@@ -23,8 +23,17 @@ export default class SetTitleButton extends Component {
           >
             <Fragment>
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ color: "white", fontSize: RF(3) }}>제목</Text>
-                <Entypo name="pencil" size="22%" color="white" />
+                <Entypo name="pencil" size={RF(2.7)} color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: RF(3),
+                    marginLeft: "2%",
+                    fontWeight: "600"
+                  }}
+                >
+                  제목
+                </Text>
               </View>
               <Text style={{ color: "white", fontSize: RF(1.7) }}>
                 ({title})

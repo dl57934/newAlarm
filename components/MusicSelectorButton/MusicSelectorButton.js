@@ -20,7 +20,7 @@ const MusicSelectorButton = ({ musicInfo, setMusic }) => {
     <Fragment>
       <TouchableOpacity
         onPress={() => _pickDocument(setMusic)}
-        style={{ flex: 0.5 }}
+        style={{ flex: 0.5, justifyContent: "center", alignContent: "center" }}
       >
         <View
           style={{
@@ -31,18 +31,22 @@ const MusicSelectorButton = ({ musicInfo, setMusic }) => {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "center",
-              alignContent: "center",
-              marginTop: "5%",
-              marginBottom: "5%"
+              marginTop: "5%"
             }}
           >
-            <Text style={{ color: "white", fontSize: RF(3) }}>
+            <MaterialIcons name="queue-music" size={RF(2.7)} color="white" />
+            <Text
+              style={{
+                color: "white",
+                fontSize: RF(3),
+                fontWeight: "600",
+                marginLeft: "2%"
+              }}
+            >
               음악 선택하기
             </Text>
-            <MaterialIcons name="queue-music" size={40} color="white" />
           </View>
-          <Text style={{ color: "white", fontSize: RF(1.7), marginTop: "-8%" }}>
+          <Text style={{ color: "white", fontSize: RF(1.7) }}>
             ({musicInfo.name})
           </Text>
         </View>
