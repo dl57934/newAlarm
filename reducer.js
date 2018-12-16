@@ -79,7 +79,7 @@ const setRepeatInterval = (interval, repeat) => {
 const initialState = {
   calendar: false,
   settedDate: {},
-  time: "",
+  time: "AM 1 1",
   musicInfo: { uri: undefined, name: "설정 안 함" },
   title: "설정 안 함",
   visibleTitle: false,
