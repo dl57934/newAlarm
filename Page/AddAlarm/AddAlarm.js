@@ -19,6 +19,7 @@ export default class AddAlarm extends Component {
       navigation,
       visibleCalendar,
       calendar,
+      time,
       title,
       visibleTitle,
       musicInfo,
@@ -28,15 +29,28 @@ export default class AddAlarm extends Component {
       setTime,
       setMusic,
       setTitle,
+      setInitialState,
       visibleSetTitle,
       setVibration,
       repeatInterval,
-      setDaysOfWeek
+      setDaysOfWeek,
+      daysOfWeek
     } = this.props;
+
     return (
       <View style={style.container}>
         <StatusBar hidden />
-        <SaveAndQuitButton navigation={navigation} />
+        <SaveAndQuitButton
+          navigation={navigation}
+          title={title}
+          calendar={calendar}
+          daysOfWeek={daysOfWeek}
+          musicInfo={musicInfo}
+          vibration={vibration}
+          repeatInterval={repeatInterval}
+          time={time}
+          setInitialState={setInitialState}
+        />
         <SetDaysButton onPress={visibleCalendar} />
         <View style={style.content}>
           <View
@@ -47,7 +61,9 @@ export default class AddAlarm extends Component {
             <Pickers setTime={setTime} />
           </View>
           <DayOfWeek
+            daysOfWeek={daysOfWeek}
             onPress={day => {
+              setDate({ dateString: "remove" });
               setDaysOfWeek(day);
             }}
           />
@@ -68,7 +84,11 @@ export default class AddAlarm extends Component {
         </View>
         <SlidingUpPanel
           visible={calendar}
-          onRequestClose={visibleCalendar}
+          onRequestClose={() => {
+            visibleCalendar();
+            if (Object.keys(settedDate).length >= 1)
+              setDaysOfWeek({ remove: "remove" });
+          }}
           startCollapsed
         >
           <WixCalendar setDate={setDate} settedDate={settedDate} />

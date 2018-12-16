@@ -24,7 +24,11 @@ const mapDispatchToProps = dispatch => {
       dispatch
     ),
     setVibration: bindActionCreators(actionCreators.setVibration, dispatch),
-    setDaysOfWeek: bindActionCreators(actionCreators.setDaysOfWeek, dispatch)
+    setDaysOfWeek: bindActionCreators(actionCreators.setDaysOfWeek, dispatch),
+    setInitialState: bindActionCreators(
+      actionCreators.setInitialState,
+      dispatch
+    )
   };
 };
 

@@ -2,12 +2,37 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const SaveAndQuitButton = ({ navigation }) => (
+const SaveAndQuitButton = ({
+  navigation,
+  title,
+  calendar,
+  daysOfWeek,
+  musicInfo,
+  vibration,
+  repeatInterval,
+  time,
+  setInitialState
+}) => (
   <View style={style.upper}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
       <AntDesign name="back" size={40} style={{ color: "white" }} />
     </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.goBack()}>
+    <TouchableOpacity
+      onPress={() => {
+        console.log({
+          title,
+          calendar,
+          daysOfWeek,
+          musicInfo,
+          vibration,
+          interval: repeatInterval.interval[0],
+          repeat: repeatInterval.repeat[1],
+          time
+        });
+        setInitialState();
+        navigation.goBack();
+      }}
+    >
       <AntDesign name="check" size={40} style={{ color: "white" }} />
     </TouchableOpacity>
   </View>

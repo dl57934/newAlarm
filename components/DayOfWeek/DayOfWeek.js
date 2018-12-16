@@ -4,13 +4,6 @@ import RF from "react-native-responsive-fontsize";
 export default class DayOfWeek extends Component {
   componentWillMount() {
     this.setState({
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false,
       days: [
         { sunday: "일" },
         { monday: "월" },
@@ -22,12 +15,8 @@ export default class DayOfWeek extends Component {
       ]
     });
   }
-  _changeSelect = day => {
-    this.setState({
-      [day]: !this.state[day]
-    });
-  };
   render() {
+    const { daysOfWeek } = this.props;
     return (
       <View
         style={{
@@ -46,23 +35,22 @@ export default class DayOfWeek extends Component {
         >
           반복 요일
         </Text>
+
         <View style={dayStyle.days}>
           {this.state.days.map((day, index) => {
             const keyName = Object.keys(day);
             const value = day[keyName];
+
             return (
               <TouchableOpacity
                 key={index}
-                onPressOut={() => {
-                  this.props.onPress(day);
-                  return this._changeSelect(keyName);
-                }}
+                onPressOut={() => this.props.onPress(day)}
               >
                 <View
                   style={[
                     dayStyle.views,
                     {
-                      borderColor: this.state[keyName]
+                      borderColor: daysOfWeek[keyName]
                         ? value === "일"
                           ? "red"
                           : value === "토"

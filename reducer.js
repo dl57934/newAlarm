@@ -7,12 +7,19 @@ const SET_TITLE = "SET_TITLE";
 const SET_VIBRATION = "SET_VIBRATION";
 const SET_INTERVAL_REPEAT = "SET_INTERVAL_REPEAT";
 const SET_DAYS_OF_WEEK = "SET_DAYS_OF_WEEK";
+const SET_INITIAL_STATE = "SET_INITIAL_STATE";
 
 const setDaysOfWeek = daysOfWeek => {
   const day = Object.keys(daysOfWeek);
   return {
     type: SET_DAYS_OF_WEEK,
-    day: day
+    day
+  };
+};
+
+const setInitialState = () => {
+  return {
+    type: SET_INITIAL_STATE
   };
 };
 
@@ -72,7 +79,7 @@ const setRepeatInterval = (interval, repeat) => {
 const initialState = {
   calendar: false,
   settedDate: {},
-  setTime: [],
+  time: "",
   musicInfo: { uri: undefined, name: "설정 안 함" },
   title: "설정 안 함",
   visibleTitle: false,
@@ -109,20 +116,42 @@ const reducer = (state = initialState, action) => {
       return applySetIntervalRepeat(state, action);
     case SET_DAYS_OF_WEEK:
       return applySetDaysOfWeek(state, action);
+    case SET_INITIAL_STATE:
+      return applySetInitialState(state, action);
     default:
       return state;
   }
 };
 
-const applySetDaysOfWeek = (state, action) => {
-  console.log(state.daysOfWeek);
+const applySetInitialState = (state, action) => {
   return {
-    ...state,
-    daysOfWeek: {
-      ...state.daysOfWeek,
-      [action.day]: !state[action.day]
-    }
+    ...initialState
   };
+};
+
+const applySetDaysOfWeek = (state, action) => {
+  if (action.day[0] === "remove") {
+    return {
+      ...state,
+      daysOfWeek: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false
+      }
+    };
+  } else {
+    return {
+      ...state,
+      daysOfWeek: {
+        ...state.daysOfWeek,
+        [action.day[0]]: !state.daysOfWeek[action.day[0]]
+      }
+    };
+  }
 };
 
 const applySetIntervalRepeat = (state, action) => {
@@ -147,7 +176,6 @@ const applyVisibleSetTitle = (state, action) => {
 };
 
 const applySetTitle = (state, action) => {
-  console.log(action.title);
   if ((state.title !== undefined, action.title === "")) {
     return {
       ...state
@@ -176,28 +204,37 @@ const applySetMusic = (state, action) => {
 const applySetTime = (state, action) => {
   return {
     ...state,
-    setTime: action.time
+    time: action.time
   };
 };
 
 const applySetDate = (state, action) => {
   const setDate = action.date.dateString;
   let jsonVariable = {};
-  jsonVariable[setDate] = {
-    selected: true,
-    marked: true,
-    selectedColor: "#00008C"
-  };
+  console.log(setDate);
   if (state.settedDate.hasOwnProperty(setDate)) {
-    jsonVariable[setDate] = undefined;
+    delete state.settedDate[setDate];
+  } else {
+    jsonVariable[setDate] = {
+      selected: true,
+      marked: true,
+      selectedColor: "#00008C"
+    };
   }
-  return {
-    ...state,
-    settedDate: {
-      ...state.settedDate,
-      ...jsonVariable
-    }
-  };
+  if (setDate === "remove") {
+    return {
+      ...state,
+      settedDate: {}
+    };
+  } else {
+    return {
+      ...state,
+      settedDate: {
+        ...state.settedDate,
+        ...jsonVariable
+      }
+    };
+  }
 };
 
 const applyVisibleCalender = state => {
@@ -216,7 +253,8 @@ export const actionCreators = {
   visibleSetTitle,
   setVibration,
   setRepeatInterval,
-  setDaysOfWeek
+  setDaysOfWeek,
+  setInitialState
 };
 
 export default reducer;
