@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, AsyncStorage } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 const SaveAndQuitButton = ({
@@ -14,23 +14,35 @@ const SaveAndQuitButton = ({
   setInitialState
 }) => (
   <View style={style.upper}>
-    <TouchableOpacity onPress={() => navigation.goBack()}>
+    <TouchableOpacity
+      onPress={() => {
+        setInitialState();
+        navigation.goBack();
+      }}
+    >
       <AntDesign name="back" size={40} style={{ color: "white" }} />
     </TouchableOpacity>
     <TouchableOpacity
-      onPress={() => {
-        console.log({
+      onPress={async () => {
+        const savingData = JSON.stringify({
           title,
           calendar,
           daysOfWeek,
           musicInfo,
           vibration,
-          interval: repeatInterval.interval[0],
-          repeat: repeatInterval.repeat[1],
+          repeat: repeatInterval.interval[0],
+          interval: repeatInterval.repeat[1],
           time
         });
+
+        try {
+          const keys = await AsyncStorage.getAllKeys();
+          await AsyncStorage.setItem(`${keys.length}`, savingData);
+        } catch (error) {
+          console.log(error);
+        }
         setInitialState();
-        navigation.goBack();
+        navigation.navigate("Home", { user: "Lucy" });
       }}
     >
       <AntDesign name="check" size={40} style={{ color: "white" }} />

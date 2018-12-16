@@ -211,7 +211,6 @@ const applySetTime = (state, action) => {
 const applySetDate = (state, action) => {
   const setDate = action.date.dateString;
   let jsonVariable = {};
-  console.log(setDate);
   if (state.settedDate.hasOwnProperty(setDate)) {
     delete state.settedDate[setDate];
   } else {

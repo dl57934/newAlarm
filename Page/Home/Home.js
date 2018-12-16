@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Picker
+  AsyncStorage
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -18,18 +18,31 @@ class Home extends Component {
     minute < 10 ? (minute = `0${minute}`) : minute;
     return `${hours}:${minute}`;
   }
-  componentWillMount() {
+  componentWillMount = async () => {
     this._stateChange();
     setInterval(() => {
       this._stateChange();
     }, 1000);
-  }
+  };
 
   _stateChange() {
     this.setState({
       time: this._getTime()
     });
   }
+
+  dbData = [];
+
+  componentWillUpdate = async () => {
+    const keys = await AsyncStorage.getAllKeys();
+    const data = await AsyncStorage.multiGet(keys);
+    data.map((result, i, store) => {
+      // get at each store's key/value so you can work with it
+      let key = store[i][0];
+      let value = store[i][1];
+      if (this.dbData.length !== keys.length) this.dbData.push(value);
+    });
+  };
 
   render() {
     const { navigation } = this.props;
@@ -40,7 +53,7 @@ class Home extends Component {
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
         <View style={styles.middle}>
-          <Text>here Alarm List</Text>
+          <Text>{this.dbData.map(data => data)}</Text>
         </View>
         <View style={styles.down}>
           <TouchableOpacity onPress={() => navigation.navigate("AddAlarm")}>
