@@ -1,18 +1,26 @@
 import React, { Component, Fragment } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar
+} from "react-native";
 import RF from "react-native-responsive-fontsize";
 import { CheckBox } from "react-native-elements";
 
 export default class SetRepeat extends Component {
   constructor(props) {
     super(props);
+    const { repeatInterval } = this.props;
+    console.log(repeatInterval);
     this.state = {
       intervals: ["5", "10", "15", "30"],
       repeats: ["3", "5", "계속"],
       intervalCheck: true,
       repeatCheck: true,
-      repeatIndex: 0,
-      intervalIndex: 0
+      repeatIndex: repeatInterval.repeat[1],
+      intervalIndex: repeatInterval.interval[1]
     };
   }
 
@@ -37,9 +45,10 @@ export default class SetRepeat extends Component {
       intervalIndex,
       repeatIndex
     } = this.state;
-
+    const { setRepeatInterval, navigation } = this.props;
     return (
       <View style={Style.container}>
+        <StatusBar hidden />
         <View style={Style.interval}>
           <Text style={Style.intervalTitle}>간격</Text>
           <View style={[Style.bottomLine, { marginBottom: "3%" }]} />
@@ -103,6 +112,25 @@ export default class SetRepeat extends Component {
             </Fragment>
           ))}
         </View>
+
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            bottom: 40,
+            width: "100%"
+          }}
+          onPressOut={() => {
+            setRepeatInterval(
+              [intervals[intervalIndex], intervalIndex],
+              [repeats[repeatIndex], repeatIndex]
+            );
+            navigation.goBack();
+          }}
+        >
+          <Text style={{ fontSize: "30%", fontWeight: "600", color: "white" }}>
+            확인
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

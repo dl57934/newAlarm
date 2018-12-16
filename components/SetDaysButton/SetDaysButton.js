@@ -17,7 +17,7 @@ const SetDaysButton = ({ onPress }) => (
     ]}
   >
     <Text style={{ color: "white" }}>
-      {`${date.getMonth() + 1}월  ${date.getDate()}일`}
+      {`내일 ${date.getMonth() + 1}월  ${date.getDate() + 1}일`}
     </Text>
     <TouchableOpacity onPressOut={onPress}>
       <View style={{ flexDirection: "row" }}>

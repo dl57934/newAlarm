@@ -29,7 +29,9 @@ export default class AddAlarm extends Component {
       setMusic,
       setTitle,
       visibleSetTitle,
-      setVibration
+      setVibration,
+      repeatInterval,
+      setDaysOfWeek
     } = this.props;
     return (
       <View style={style.container}>
@@ -44,7 +46,11 @@ export default class AddAlarm extends Component {
           >
             <Pickers setTime={setTime} />
           </View>
-          <DayOfWeek />
+          <DayOfWeek
+            onPress={day => {
+              setDaysOfWeek(day);
+            }}
+          />
           <SetTitleButton title={title} visibleSetTitleView={visibleSetTitle} />
 
           <View style={[style.bottomLine]} />
@@ -55,7 +61,10 @@ export default class AddAlarm extends Component {
             setVibration={setVibration}
           />
           <View style={[style.bottomLine]} />
-          <SetRepeatButton navigation={navigation} />
+          <SetRepeatButton
+            navigation={navigation}
+            repeatInterval={repeatInterval}
+          />
         </View>
         <SlidingUpPanel
           visible={calendar}

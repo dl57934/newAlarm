@@ -16,7 +16,7 @@ const View = createStackNavigator(
     SetRepeat: { screen: SetRepeat }
   },
   {
-    initialRouteName: "SetRepeat",
+    initialRouteName: "Home",
     headerMode: "none"
   }
 );

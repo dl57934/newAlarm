@@ -23,7 +23,8 @@ const mapDispatchToProps = dispatch => {
       actionCreators.visibleSetTitle,
       dispatch
     ),
-    setVibration: bindActionCreators(actionCreators.setVibration, dispatch)
+    setVibration: bindActionCreators(actionCreators.setVibration, dispatch),
+    setDaysOfWeek: bindActionCreators(actionCreators.setDaysOfWeek, dispatch)
   };
 };
 

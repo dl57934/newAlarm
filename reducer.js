@@ -5,6 +5,16 @@ const SET_TIME = "SET_TIME";
 const SET_MUSIC = "SET_MUSIC";
 const SET_TITLE = "SET_TITLE";
 const SET_VIBRATION = "SET_VIBRATION";
+const SET_INTERVAL_REPEAT = "SET_INTERVAL_REPEAT";
+const SET_DAYS_OF_WEEK = "SET_DAYS_OF_WEEK";
+
+const setDaysOfWeek = daysOfWeek => {
+  const day = Object.keys(daysOfWeek);
+  return {
+    type: SET_DAYS_OF_WEEK,
+    day: day
+  };
+};
 
 const setVibration = () => {
   return {
@@ -52,6 +62,13 @@ const setTitle = title => {
   };
 };
 
+const setRepeatInterval = (interval, repeat) => {
+  return {
+    type: SET_INTERVAL_REPEAT,
+    repeatInterval: { interval, repeat }
+  };
+};
+
 const initialState = {
   calendar: false,
   settedDate: {},
@@ -59,7 +76,17 @@ const initialState = {
   musicInfo: { uri: undefined, name: "설정 안 함" },
   title: "설정 안 함",
   visibleTitle: false,
-  vibration: false
+  vibration: false,
+  repeatInterval: { interval: [5, 0], repeat: [3, 0] },
+  daysOfWeek: {
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -78,9 +105,31 @@ const reducer = (state = initialState, action) => {
       return applyVisibleSetTitle(state, action);
     case SET_VIBRATION:
       return applySetVibration(state, action);
+    case SET_INTERVAL_REPEAT:
+      return applySetIntervalRepeat(state, action);
+    case SET_DAYS_OF_WEEK:
+      return applySetDaysOfWeek(state, action);
     default:
       return state;
   }
+};
+
+const applySetDaysOfWeek = (state, action) => {
+  console.log(state.daysOfWeek);
+  return {
+    ...state,
+    daysOfWeek: {
+      ...state.daysOfWeek,
+      [action.day]: !state[action.day]
+    }
+  };
+};
+
+const applySetIntervalRepeat = (state, action) => {
+  return {
+    ...state,
+    repeatInterval: action.repeatInterval
+  };
 };
 
 const applySetVibration = (state, action) => {
@@ -165,7 +214,9 @@ export const actionCreators = {
   setMusic,
   setTitle,
   visibleSetTitle,
-  setVibration
+  setVibration,
+  setRepeatInterval,
+  setDaysOfWeek
 };
 
 export default reducer;

@@ -53,7 +53,10 @@ export default class DayOfWeek extends Component {
             return (
               <TouchableOpacity
                 key={index}
-                onPressOut={() => this._changeSelect(keyName)}
+                onPressOut={() => {
+                  this.props.onPress(day);
+                  return this._changeSelect(keyName);
+                }}
               >
                 <View
                   style={[

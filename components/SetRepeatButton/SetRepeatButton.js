@@ -4,7 +4,7 @@ import RF from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
 class SetRepeatButton extends Component {
   render() {
-    const { navigation } = this.props;
+    const { navigation, repeatInterval } = this.props;
     return (
       <View
         style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}
@@ -29,7 +29,9 @@ class SetRepeatButton extends Component {
                 반복도 정하기
               </Text>
             </View>
-            <Text style={{ color: "white", fontSize: RF(1.7) }}>(설정)</Text>
+            <Text style={{ color: "white", fontSize: RF(1.7) }}>
+              ({repeatInterval.interval[0]}회 {repeatInterval.repeat[0]}분)
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
