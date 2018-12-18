@@ -100,11 +100,3 @@ export default class AddAlarm extends Component {
     );
   }
 }
-
-const testStyle = StyleSheet.create({
-  leftButton: {},
-  rightButton: {},
-  selectDayOfWeek: {
-    flex: 1
-  }
-});

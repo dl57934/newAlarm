@@ -5,8 +5,8 @@ const style = StyleSheet.create({
     backgroundColor: "#00008C"
   },
   bottomLine: {
-    borderBottomColor: "yellow",
-    borderBottomWidth: 2,
+    borderBottomColor: "#000070",
+    borderBottomWidth: 4,
     width: "100%"
   },
   content: {
