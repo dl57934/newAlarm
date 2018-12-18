@@ -12,35 +12,40 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
 
 class Home extends Component {
-  _getTime() {
-    let date = new Date();
-    let hours = date.getHours();
-    let minute = date.getMinutes();
-    hours > 12 ? (hours = hours - 12) : hours === 0 ? (hours = 12) : hours;
-    minute < 10 ? (minute = `0${minute}`) : minute;
-    return `${hours}:${minute}`;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false
+    };
   }
+
   componentWillMount = async () => {
-    this._stateChange();
+    this._stateTimerChange();
     setInterval(() => {
-      this._stateChange();
+      this._stateTimerChange();
     }, 1000);
   };
 
   componentWillUpdate = async () => {
+    let checkFirst = 0;
     const keys = await AsyncStorage.getAllKeys();
     const data = await AsyncStorage.multiGet(keys);
     data.map((result, i, store) => {
       // get at each store's key/value so you can work with it
       let value = store[i][1];
-      if (this.dbData.length !== keys.length) this.dbData.push(value);
+      if (this.dbData.length !== keys.length && i === keys.length - 1)
+        this.dbData.push(value);
+    });
+    this.setState({
+      isLoading: true
     });
   };
 
   render() {
     const { navigation } = this.props;
-    return (
-      <View style={[styles.container]}>
+    const { isLoading } = this.state;
+    return isLoading ? (
+      <View style={styles.container}>
         <StatusBar hidden />
         <View style={styles.upper}>
           <Text style={styles.upperText}>{this.state.time}</Text>
@@ -58,19 +63,38 @@ class Home extends Component {
           </TouchableOpacity>
         </View>
       </View>
+    ) : (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#ffffff" />
+      </View>
     );
   }
   dbData = [];
-  _stateChange() {
+  _stateTimerChange() {
     this.setState({
       time: this._getTime()
     });
+  }
+
+  _getTime() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minute = date.getMinutes();
+    hours > 12 ? (hours = hours - 12) : hours === 0 ? (hours = 12) : hours;
+    minute < 10 ? (minute = `0${minute}`) : minute;
+    return `${hours}:${minute}`;
   }
 }
 
 export default Home;
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "#a0a0a0",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   container: {
     flex: 1,
     backgroundColor: "#00008C"
