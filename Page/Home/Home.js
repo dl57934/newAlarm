@@ -23,25 +23,21 @@ class Home extends Component {
     const _DBKeys = await AsyncStorage.getAllKeys();
     for (let key of _DBKeys) {
       const value = await AsyncStorage.getItem(key);
-      console.log(value);
       this.dbData.push(value);
     }
+    setInterval(() => {
+      this._setNewDBData();
+    }, 2000);
     this._stateTimerChange();
     setInterval(() => {
       this._stateTimerChange();
     }, 1000);
-  };
-
-  componentWillUpdate = async () => {
-    const _DBKeys = await AsyncStorage.getAllKeys();
-    if (_DBKeys.length !== this.dbData.length) {
-      const value = AsyncStorage.getItem(_DBKeys[_DBKeys.length]);
-      this.dbData.push(value);
-    }
     this.setState({
       isLoading: true
     });
   };
+
+  componentWillUpdate = async () => {};
 
   render() {
     const { navigation } = this.props;
@@ -77,6 +73,15 @@ class Home extends Component {
       time: this._getTime()
     });
   }
+
+  _setNewDBData = async () => {
+    console.log("_setNewDBdata");
+    const _DBKeys = await AsyncStorage.getAllKeys();
+    if (_DBKeys.length !== this.dbData.length) {
+      const value = await AsyncStorage.getItem(_DBKeys[_DBKeys.length - 1]);
+      await this.dbData.push(value);
+    }
+  };
 
   _getTime() {
     let date = new Date();
