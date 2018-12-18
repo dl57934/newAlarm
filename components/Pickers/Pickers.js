@@ -17,9 +17,17 @@ class Pickers extends Component {
       setMinute: "1"
     });
   }
+
+  _setPickerChangeTimer(type, setHour, setMinute) {
+    const { setTime } = this.props;
+    setTime(
+      `${type} ${setHour < 10 ? "0" : ""}${setHour}시 ${
+        setMinute < 10 ? "0" : ""
+      }${setMinute}분`
+    );
+  }
   render() {
     let { type, setHour, setMinute } = this.state;
-    const { setTime } = this.props;
     return (
       <View style={{ flexDirection: "row" }}>
         <Picker
@@ -27,7 +35,7 @@ class Pickers extends Component {
           itemStyle={{ color: "white" }}
           selectedValue={type}
           onValueChange={(itemValue, itemIndex) => {
-            setTime(`${itemValue} ${setHour} ${setMinute}`);
+            this._setPickerChangeTimer(itemValue, setHour, setMinute);
             this.setState({
               type: itemValue.toString()
             });
@@ -41,7 +49,7 @@ class Pickers extends Component {
           itemStyle={{ color: "white" }}
           selectedValue={setHour}
           onValueChange={(itemValue, itemIndex) => {
-            setTime(`${type} ${itemValue} ${setMinute}`);
+            this._setPickerChangeTimer(type, itemValue, setMinute);
             this.setState({
               setHour: itemValue.toString()
             });
@@ -60,7 +68,7 @@ class Pickers extends Component {
           itemStyle={{ color: "white" }}
           selectedValue={setMinute}
           onValueChange={(itemValue, itemIndex) => {
-            setTime(`${type} ${setHour} ${itemValue}`);
+            this._setPickerChangeTimer(type, setHour, itemValue);
             this.setState({
               setMinute: itemValue.toString()
             });

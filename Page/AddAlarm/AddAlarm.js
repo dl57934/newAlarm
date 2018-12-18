@@ -43,7 +43,7 @@ export default class AddAlarm extends Component {
         <SaveAndQuitButton
           navigation={navigation}
           title={title}
-          calendar={calendar}
+          calendar={settedDate}
           daysOfWeek={daysOfWeek}
           musicInfo={musicInfo}
           vibration={vibration}

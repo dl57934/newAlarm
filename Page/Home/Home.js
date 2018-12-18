@@ -5,9 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import AlarmItem from "../../components/AlarmItem";
 
 class Home extends Component {
   _getTime() {
@@ -25,20 +27,11 @@ class Home extends Component {
     }, 1000);
   };
 
-  _stateChange() {
-    this.setState({
-      time: this._getTime()
-    });
-  }
-
-  dbData = [];
-
   componentWillUpdate = async () => {
     const keys = await AsyncStorage.getAllKeys();
     const data = await AsyncStorage.multiGet(keys);
     data.map((result, i, store) => {
       // get at each store's key/value so you can work with it
-      let key = store[i][0];
       let value = store[i][1];
       if (this.dbData.length !== keys.length) this.dbData.push(value);
     });
@@ -47,13 +40,17 @@ class Home extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <StatusBar hidden />
         <View style={styles.upper}>
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
         <View style={styles.middle}>
-          <Text>{this.dbData.map(data => data)}</Text>
+          {this.dbData.map(data => (
+            <View>
+              <AlarmItem item={data} />
+            </View>
+          ))}
         </View>
         <View style={styles.down}>
           <TouchableOpacity onPress={() => navigation.navigate("AddAlarm")}>
@@ -62,6 +59,12 @@ class Home extends Component {
         </View>
       </View>
     );
+  }
+  dbData = [];
+  _stateChange() {
+    this.setState({
+      time: this._getTime()
+    });
   }
 }
 

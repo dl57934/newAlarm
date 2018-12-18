@@ -4497,6 +4497,11 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
+react-native-breadcrumb@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-breadcrumb/-/react-native-breadcrumb-1.0.1.tgz#aafee42c6d7403b268ff2d20e24b9881e7e2a56b"
+  integrity sha512-L1AJTQg8ZoetH1gU3wZ5Ns0J1ZS4k0QEZFmbbETAQ8GTyoZX9XjAVZjOCLMtbNdxk5u4uAwAgN6zR8Aw1Hcfsg==
+
 react-native-calendars@^1.21.0:
   version "1.21.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.21.0.tgz#c8df92a131c7ebd3f9cf38d271e1b1cba4f8792d"
@@ -4566,13 +4571,6 @@ react-native-iphone-x-helper@^1.0.2:
 react-native-maps@^0.22.1, react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
-
-react-native-picker-checkbox@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-picker-checkbox/-/react-native-picker-checkbox-1.0.8.tgz#ef77d76c83e458667ba0a4cbc56dceb40ec44f91"
-  integrity sha512-gxN2FSrDV+BdgfbzDABEet6X7u6b4JeoGnD9uoRvkuG+Mcfc3elWvk5FXEg1F1d3ytqKqPTKCKAuGuTCA7MtPA==
-  dependencies:
-    prop-types "^15.6.0"
 
 react-native-reanimated@1.0.0-alpha.10:
   version "1.0.0-alpha.10"

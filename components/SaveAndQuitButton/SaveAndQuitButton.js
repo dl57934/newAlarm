@@ -26,13 +26,14 @@ const SaveAndQuitButton = ({
       onPress={async () => {
         const savingData = JSON.stringify({
           title,
-          calendar,
+          calendar: Object.keys(calendar),
           daysOfWeek,
           musicInfo,
           vibration,
           repeat: repeatInterval.interval[0],
           interval: repeatInterval.repeat[1],
-          time
+          time,
+          active: true
         });
 
         try {

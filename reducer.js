@@ -79,7 +79,7 @@ const setRepeatInterval = (interval, repeat) => {
 const initialState = {
   calendar: false,
   settedDate: {},
-  time: "AM 1 1",
+  time: "AM 01시 01분",
   musicInfo: { uri: undefined, name: "설정 안 함" },
   title: "설정 안 함",
   visibleTitle: false,
@@ -229,7 +229,6 @@ const applySetDate = (state, action) => {
     return {
       ...state,
       settedDate: {
-        ...state.settedDate,
         ...jsonVariable
       }
     };
