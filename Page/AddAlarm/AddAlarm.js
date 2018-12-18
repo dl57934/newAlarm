@@ -51,7 +51,11 @@ export default class AddAlarm extends Component {
           time={time}
           setInitialState={setInitialState}
         />
-        <SetDaysButton onPress={visibleCalendar} />
+        <SetDaysButton
+          onPress={visibleCalendar}
+          DayOfWeek={daysOfWeek}
+          date={settedDate}
+        />
         <View style={style.content}>
           <View
             style={
