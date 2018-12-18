@@ -57,7 +57,6 @@ const SetDaysButton = ({ onPress, DayOfWeek, date }) => {
               } else if (value) {
                 returnedDays += setDays[index] + ",";
               } else if (index == 6) {
-                console.log(returnedDays);
                 return returnedDays.substr(0, returnedDays.length - 1);
               }
             })}

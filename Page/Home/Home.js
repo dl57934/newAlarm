@@ -28,10 +28,12 @@ class Home extends Component {
 
   componentWillUpdate = async () => {
     const keys = await AsyncStorage.getAllKeys();
-    let data;
-    if (keys.length != this.dbData.length) {
+    let data = [];
+
+    if (keys.length !== this.dbData.length) {
       data = await AsyncStorage.multiGet(keys);
     }
+
     data.map((result, i, store) => {
       // get at each store's key/value so you can work with it
       let value = store[i][1];

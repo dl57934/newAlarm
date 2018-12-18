@@ -11,6 +11,7 @@ export default class AlarmItem extends Component {
   render() {
     const { item } = this.props;
     const { time, dayOfWeek, calendar, title } = JSON.parse(item);
+    console.log(calendar);
     return (
       <TouchableOpacity style={{ marginBottom: "4%" }}>
         <View style={style.data}>
@@ -19,7 +20,7 @@ export default class AlarmItem extends Component {
             <Text style={style.title}>{title}</Text>
           </View>
           <View style={style.dateContainer}>
-            <Text style={style.date}>{calendar ? calendar[0] : dayOfWeek}</Text>
+            <Text style={style.date}>{calendar ? calendar : dayOfWeek}</Text>
           </View>
         </View>
         <View style={style.bottomLine} />
