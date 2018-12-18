@@ -10,7 +10,31 @@ const _getTomorrow = () => {
 };
 
 const SetDaysButton = ({ onPress, DayOfWeek, date }) => {
-  console.log({ ...DayOfWeek });
+  const {
+    monday,
+    friday,
+    saturday,
+    sunday,
+    tuesday,
+    thursday,
+    wednesday
+  } = DayOfWeek;
+  const dayOfWeekResult = [
+    monday | tuesday | wednesday | thursday | friday | saturday | sunday,
+    monday & tuesday & wednesday & thursday & friday & saturday & sunday
+  ];
+  const setDays = ["월", "화", "수", "목", "금", "토", "일"];
+  const selectedDateInfo = [
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday
+  ];
+  const checkEmptyDate = JSON.stringify(date);
+  let returnedDays = "";
   return (
     <View
       style={[
@@ -23,7 +47,20 @@ const SetDaysButton = ({ onPress, DayOfWeek, date }) => {
       ]}
     >
       <Text style={{ color: "white" }}>
-        {{ ...DayOfWeek } && date == undefined ? "" : _getTomorrow()}
+        {!dayOfWeekResult[0] && checkEmptyDate === JSON.stringify({})
+          ? _getTomorrow()
+          : !dayOfWeekResult[0]
+          ? Object.keys(date)
+          : selectedDateInfo.map((value, index) => {
+              if (dayOfWeekResult[1] && index === 0) {
+                return "매일";
+              } else if (value) {
+                returnedDays += setDays[index] + ",";
+              } else if (index == 6) {
+                console.log(returnedDays);
+                return returnedDays.substr(0, returnedDays.length - 1);
+              }
+            })}
       </Text>
       <TouchableOpacity onPressOut={onPress}>
         <View style={{ flexDirection: "row" }}>
