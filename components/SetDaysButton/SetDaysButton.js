@@ -56,6 +56,10 @@ const SetDaysButton = ({ onPress, DayOfWeek, date }) => {
                 return "매일";
               } else if (value) {
                 returnedDays += setDays[index] + ",";
+                if (setDays[index] === "일") {
+                  if (!dayOfWeekResult[1])
+                    return returnedDays.substr(0, returnedDays.length - 1);
+                }
               } else if (index == 6) {
                 return returnedDays.substr(0, returnedDays.length - 1);
               }
