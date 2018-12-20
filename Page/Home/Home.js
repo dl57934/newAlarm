@@ -49,11 +49,13 @@ class Home extends Component {
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
         <View style={styles.middle}>
-          {this.dbData.map(data => (
-            <View>
-              <AlarmItem item={data} />
-            </View>
-          ))}
+          {this.dbData.map((data, index) => {
+            return (
+              <View>
+                <AlarmItem item={data} dbKey={index} />
+              </View>
+            );
+          })}
         </View>
         <View style={styles.down}>
           <TouchableOpacity onPress={() => navigation.navigate("AddAlarm")}>
@@ -75,7 +77,6 @@ class Home extends Component {
   }
 
   _setNewDBData = async () => {
-    console.log("_setNewDBdata");
     const _DBKeys = await AsyncStorage.getAllKeys();
     if (_DBKeys.length !== this.dbData.length) {
       const value = await AsyncStorage.getItem(_DBKeys[_DBKeys.length - 1]);

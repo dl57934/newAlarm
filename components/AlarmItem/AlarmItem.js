@@ -1,15 +1,25 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { Component, Fragment } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import Breadcrumb from "react-native-breadcrumb";
 import RF from "react-native-responsive-fontsize";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default class AlarmItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      trashView: false
+    };
   }
 
   render() {
-    const { item } = this.props;
+    const { item, dbKey } = this.props;
     const { time, daysOfWeek, calendar, title } = JSON.parse(item);
     const setDays = ["월", "화", "수", "목", "금", "토", "일"];
     const {
@@ -34,27 +44,58 @@ export default class AlarmItem extends Component {
     const dayOfWeekResult =
       monday & tuesday & wednesday & thursday & friday & saturday & sunday;
     return (
-      <TouchableOpacity style={{ marginBottom: "4%" }}>
+      <TouchableOpacity
+        style={{ marginBottom: "4%" }}
+        onLongPress={() => {
+          this.setState({
+            trashView: !this.state.trashView
+          });
+        }}
+        onPress={() => {
+          if (this.state.trashView) {
+            this.setState({
+              trashView: !this.state.trashView
+            });
+          } else {
+          }
+        }}
+      >
         <View style={style.data}>
-          <View>
-            <Text style={style.time}>{time}</Text>
-            <Text style={style.title}>{title}</Text>
-          </View>
-          <View style={style.dateContainer}>
-            <Text style={style.date}>
-              {calendar.length !== 0
-                ? calendar
-                : selectedDateInfo.map((value, index) => {
-                    if (dayOfWeekResult && index === 0) {
-                      return "매일";
-                    } else if (value) {
-                      returnedDays += setDays[index] + ",";
-                    } else if (index == 6) {
-                      return returnedDays.substr(0, returnedDays.length - 1);
-                    }
-                  })}
-            </Text>
-          </View>
+          <Fragment
+            style={this.state.trashView ? { width: "90%" } : { width: "100%" }}
+          >
+            <View style={{ marginLeft: "3%" }}>
+              <Text style={style.time}>{time}</Text>
+              <Text style={style.title}>{title}</Text>
+            </View>
+            <View style={style.dateContainer}>
+              <Text style={style.date}>
+                {calendar.length !== 0
+                  ? calendar
+                  : selectedDateInfo.map((value, index) => {
+                      if (dayOfWeekResult && index === 0) {
+                        return "매일";
+                      } else if (value) {
+                        returnedDays += setDays[index] + ",";
+                      } else if (index == 6) {
+                        return returnedDays.substr(0, returnedDays.length - 1);
+                      }
+                    })}
+              </Text>
+            </View>
+          </Fragment>
+          {this.state.trashView ? (
+            <TouchableOpacity
+              style={style.trashView}
+              onPress={() => {
+                AsyncStorage.removeItem(dbKey.toString());
+              }}
+            >
+              <FontAwesome name="trash-o" color="#fff" size="30%" />
+            </TouchableOpacity>
+          ) : (
+            undefined
+          )}
         </View>
         <View style={style.bottomLine} />
       </TouchableOpacity>
@@ -88,5 +129,13 @@ const style = StyleSheet.create({
   },
   dateContainer: {
     justifyContent: "center"
+  },
+  trashView: {
+    backgroundColor: "#FF9900",
+    width: "15%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: "3%",
+    marginLeft: "-20%"
   }
 });
