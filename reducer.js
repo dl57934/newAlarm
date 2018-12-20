@@ -135,9 +135,17 @@ const reducer = (state = initialState, action) => {
 
 const applySetItemsInitialState = (state, action) => {
   const getJsonData = JSON.parse(action.item);
-
+  let jsonVariable = {};
+  jsonVariable[getJsonData.calendar] = {
+    selected: true,
+    marked: true,
+    selectedColor: "#00008C"
+  };
+  console.log(getJsonData.calendar);
   return {
-    settedDate: getJsonData.calendar,
+    settedDate: {
+      ...jsonVariable
+    },
     time: getJsonData.time,
     musicInfo: { name: getJsonData.musicInfo.name, uri: undefined },
     title: getJsonData.title,
