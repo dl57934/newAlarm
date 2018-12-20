@@ -36,7 +36,7 @@ export default class AddAlarm extends Component {
       setDaysOfWeek,
       daysOfWeek
     } = this.props;
-    console.log(this.props);
+    console.log("AddAlarm", navigation.getParam("dbKey"));
     return (
       <View style={style.container}>
         <StatusBar hidden />
@@ -50,6 +50,8 @@ export default class AddAlarm extends Component {
           repeatInterval={repeatInterval}
           time={time}
           setInitialState={setInitialState}
+          editor={navigation.getParam("editor")}
+          dbKey={navigation.getParam("dbKey")}
         />
         <SetDaysButton
           onPress={visibleCalendar}

@@ -67,7 +67,9 @@ class Home extends Component {
           })}
         </View>
         <View style={styles.down}>
-          <TouchableOpacity onPress={() => navigation.navigate("AddAlarm")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AddAlarm", { editor: false })}
+          >
             <MaterialIcons name="add-alarm" size={80} color="white" />
           </TouchableOpacity>
         </View>

@@ -16,7 +16,9 @@ const SaveAndQuitButton = ({
   vibration,
   repeatInterval,
   time,
-  setInitialState
+  setInitialState,
+  editor,
+  dbKey
 }) => {
   const dayOfWeekResult =
     daysOfWeek.monday |
@@ -38,7 +40,7 @@ const SaveAndQuitButton = ({
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
-          const savingData = JSON.stringify({
+          const savingData = _changeToJsonStringPy({
             title,
             calendar:
               _changeToJsonStringPy({}) === _changeToJsonStringPy(calendar) &&
@@ -48,15 +50,19 @@ const SaveAndQuitButton = ({
             daysOfWeek,
             musicInfo,
             vibration,
-            repeat: repeatInterval.interval[0],
-            interval: repeatInterval.repeat[1],
+            repeat: repeatInterval.repeat[0],
+            interval: repeatInterval.interval[0],
             time,
             active: true
           });
-
+          console.log(dbKey, editor);
           try {
             const keys = await AsyncStorage.getAllKeys();
-            await AsyncStorage.setItem(`${keys.length}`, savingData);
+            if (editor) {
+              await AsyncStorage.mergeItem(dbKey, savingData);
+            } else {
+              await AsyncStorage.setItem(`${keys.length}`, savingData);
+            }
           } catch (error) {
             console.log(error);
           }

@@ -59,7 +59,11 @@ export default class AlarmItem extends Component {
             });
           } else {
             setItemsState(item); // addAlarm 으로 들어가기
-            navigation.navigate("AddAlarm");
+
+            navigation.navigate("AddAlarm", {
+              dbKey: dbKey,
+              editor: true
+            });
           }
         }}
       >
