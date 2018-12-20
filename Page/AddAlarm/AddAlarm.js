@@ -36,7 +36,7 @@ export default class AddAlarm extends Component {
       setDaysOfWeek,
       daysOfWeek
     } = this.props;
-
+    console.log(this.props);
     return (
       <View style={style.container}>
         <StatusBar hidden />

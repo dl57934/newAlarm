@@ -45,6 +45,7 @@ class Home extends Component {
   render() {
     const { navigation } = this.props;
     const { isLoading } = this.state;
+    const { setItemsState } = this.props;
     return isLoading ? (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -55,7 +56,12 @@ class Home extends Component {
           {this.dbData.map((data, index) => {
             return (
               <View>
-                <AlarmItem item={data} dbKey={this.dbKeys[index]} />
+                <AlarmItem
+                  item={data}
+                  dbKey={this.dbKeys[index]}
+                  setItemsState={setItemsState}
+                  navigation={navigation}
+                />
               </View>
             );
           })}
@@ -82,8 +88,6 @@ class Home extends Component {
   _setNewDBData = async () => {
     const _DBKeys = await AsyncStorage.getAllKeys();
     this.dbKeys = _DBKeys;
-    console.log("dbLength" + _DBKeys.length);
-    console.log("DataLength" + this.dbData.length);
     if (_DBKeys.length > this.dbData.length) {
       const value = await AsyncStorage.getItem(_DBKeys[_DBKeys.length - 1]);
       await this.dbData.push(value);

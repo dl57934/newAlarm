@@ -19,7 +19,7 @@ export default class AlarmItem extends Component {
   }
 
   render() {
-    const { item, dbKey } = this.props;
+    const { item, dbKey, setItemsState, navigation } = this.props;
     const { time, daysOfWeek, calendar, title } = JSON.parse(item);
 
     const setDays = ["월", "화", "수", "목", "금", "토", "일"];
@@ -58,6 +58,8 @@ export default class AlarmItem extends Component {
               trashView: !this.state.trashView
             });
           } else {
+            setItemsState(item); // addAlarm 으로 들어가기
+            navigation.navigate("AddAlarm");
           }
         }}
       >

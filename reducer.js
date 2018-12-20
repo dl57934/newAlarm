@@ -8,6 +8,14 @@ const SET_VIBRATION = "SET_VIBRATION";
 const SET_INTERVAL_REPEAT = "SET_INTERVAL_REPEAT";
 const SET_DAYS_OF_WEEK = "SET_DAYS_OF_WEEK";
 const SET_INITIAL_STATE = "SET_INITIAL_STATE";
+const SET_ITEMS_INITIAL_STATE = "SET_ITEMS_INITIAL_STAT";
+
+const setItemsState = item => {
+  return {
+    type: SET_ITEMS_INITIAL_STATE,
+    item
+  };
+};
 
 const setDaysOfWeek = daysOfWeek => {
   const day = Object.keys(daysOfWeek);
@@ -118,9 +126,28 @@ const reducer = (state = initialState, action) => {
       return applySetDaysOfWeek(state, action);
     case SET_INITIAL_STATE:
       return applySetInitialState(state, action);
+    case SET_ITEMS_INITIAL_STATE:
+      return applySetItemsInitialState(state, action);
     default:
       return state;
   }
+};
+
+const applySetItemsInitialState = (state, action) => {
+  const getJsonData = JSON.parse(action.item);
+
+  return {
+    settedDate: getJsonData.calendar,
+    time: getJsonData.time,
+    musicInfo: { name: getJsonData.musicInfo.name, uri: undefined },
+    title: getJsonData.title,
+    vibration: getJsonData.vibration,
+    repeatInterval: {
+      interval: [getJsonData.interval, 0],
+      repeat: [getJsonData.repeat, 0]
+    },
+    daysOfWeek: getJsonData.daysOfWeek
+  };
 };
 
 const applySetInitialState = (state, action) => {
@@ -252,7 +279,8 @@ export const actionCreators = {
   setVibration,
   setRepeatInterval,
   setDaysOfWeek,
-  setInitialState
+  setInitialState,
+  setItemsState
 };
 
 export default reducer;
