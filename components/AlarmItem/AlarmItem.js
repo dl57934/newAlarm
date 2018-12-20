@@ -89,9 +89,10 @@ export default class AlarmItem extends Component {
             <TouchableOpacity
               style={style.trashView}
               onPress={async () => {
-                console.log("trash");
-                console.log("removeKey" + dbKey.toString());
                 await AsyncStorage.removeItem(dbKey.toString());
+                this.setState({
+                  trashView: !this.state.trashView
+                });
               }}
             >
               <FontAwesome name="trash-o" color="#fff" size="30%" />

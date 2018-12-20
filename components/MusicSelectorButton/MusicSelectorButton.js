@@ -12,7 +12,6 @@ const _pickDocument = async setMusic => {
     copyToCacheDirectory: false
   });
   setMusic({ uri: result.uri, name: result.name });
-  alert(result.name);
 };
 
 const MusicSelectorButton = ({ musicInfo, setMusic }) => {

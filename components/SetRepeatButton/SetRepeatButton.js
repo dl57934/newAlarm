@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import RF from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ class SetRepeatButton extends Component {
               </Text>
             </View>
             <Text style={{ color: "white", fontSize: RF(1.7) }}>
-              ({repeatInterval.interval[0]}회 {repeatInterval.repeat[0]}분)
+              ({repeatInterval.interval[0]}분 {repeatInterval.repeat[0]}회)
             </Text>
           </View>
         </TouchableOpacity>
