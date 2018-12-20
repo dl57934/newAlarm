@@ -21,6 +21,7 @@ export default class AlarmItem extends Component {
   render() {
     const { item, dbKey } = this.props;
     const { time, daysOfWeek, calendar, title } = JSON.parse(item);
+
     const setDays = ["월", "화", "수", "목", "금", "토", "일"];
     const {
       monday,
@@ -87,8 +88,10 @@ export default class AlarmItem extends Component {
           {this.state.trashView ? (
             <TouchableOpacity
               style={style.trashView}
-              onPress={() => {
-                AsyncStorage.removeItem(dbKey.toString());
+              onPress={async () => {
+                console.log("trash");
+                console.log("removeKey" + dbKey.toString());
+                await AsyncStorage.removeItem(dbKey.toString());
               }}
             >
               <FontAwesome name="trash-o" color="#fff" size="30%" />

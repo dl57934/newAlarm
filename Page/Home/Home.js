@@ -12,6 +12,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
 
 class Home extends Component {
+  dbData = [];
+  dbKeys = [];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +55,7 @@ class Home extends Component {
           {this.dbData.map((data, index) => {
             return (
               <View>
-                <AlarmItem item={data} dbKey={index} />
+                <AlarmItem item={data} dbKey={this.dbKeys[index]} />
               </View>
             );
           })}
@@ -69,7 +72,7 @@ class Home extends Component {
       </View>
     );
   }
-  dbData = [];
+
   _stateTimerChange() {
     this.setState({
       time: this._getTime()
@@ -78,9 +81,18 @@ class Home extends Component {
 
   _setNewDBData = async () => {
     const _DBKeys = await AsyncStorage.getAllKeys();
-    if (_DBKeys.length !== this.dbData.length) {
+    this.dbKeys = _DBKeys;
+    console.log("dbLength" + _DBKeys.length);
+    console.log("DataLength" + this.dbData.length);
+    if (_DBKeys.length > this.dbData.length) {
       const value = await AsyncStorage.getItem(_DBKeys[_DBKeys.length - 1]);
       await this.dbData.push(value);
+    } else if (_DBKeys.length < this.dbData.length) {
+      this.dbData = [];
+      for (const key of _DBKeys) {
+        let value = await AsyncStorage.getItem(key);
+        await this.dbData.push(value);
+      }
     }
   };
 
