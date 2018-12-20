@@ -33,7 +33,7 @@ const SaveAndQuitButton = ({
       <TouchableOpacity
         onPress={() => {
           setInitialState();
-          navigation.goBack();
+          navigation.navigate("Home", { reload: false });
         }}
       >
         <AntDesign name="back" size={40} style={{ color: "white" }} />
@@ -55,19 +55,26 @@ const SaveAndQuitButton = ({
             time,
             active: true
           });
-          console.log(dbKey, editor);
+
           try {
             const keys = await AsyncStorage.getAllKeys();
+
             if (editor) {
+              console.log(dbKey);
               await AsyncStorage.mergeItem(dbKey, savingData);
+              setInitialState();
+              navigation.navigate("Home", { reload: true });
             } else {
-              await AsyncStorage.setItem(`${keys.length}`, savingData);
+              await AsyncStorage.setItem(
+                `${keys[keys.length - 1] + 1}`,
+                savingData
+              );
+              setInitialState();
+              navigation.navigate("Home", { reload: false });
             }
           } catch (error) {
             console.log(error);
           }
-          setInitialState();
-          navigation.navigate("Home", { user: "Lucy" });
         }}
       >
         <AntDesign name="check" size={40} style={{ color: "white" }} />

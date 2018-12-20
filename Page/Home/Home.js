@@ -15,6 +15,8 @@ class Home extends Component {
   dbData = [];
   dbKeys = [];
 
+  setData = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,29 +25,21 @@ class Home extends Component {
   }
 
   componentWillMount = async () => {
-    const _DBKeys = await AsyncStorage.getAllKeys();
-    for (let key of _DBKeys) {
-      const value = await AsyncStorage.getItem(key);
-      this.dbData.push(value);
-    }
-    setInterval(() => {
-      this._setNewDBData();
-    }, 2000);
+    this._setNewDBData();
     this._stateTimerChange();
+    setInterval(() => {
+      this._checkDeleteItem();
+    }, 2000);
     setInterval(() => {
       this._stateTimerChange();
     }, 1000);
-    this.setState({
-      isLoading: true
-    });
   };
 
-  componentWillUpdate = async () => {};
+  _checkChange;
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, setItemsState } = this.props;
     const { isLoading } = this.state;
-    const { setItemsState } = this.props;
     return isLoading ? (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -66,6 +60,7 @@ class Home extends Component {
             );
           })}
         </View>
+
         <View style={styles.down}>
           <TouchableOpacity
             onPress={() => navigation.navigate("AddAlarm", { editor: false })}
@@ -90,13 +85,22 @@ class Home extends Component {
   _setNewDBData = async () => {
     const _DBKeys = await AsyncStorage.getAllKeys();
     this.dbKeys = _DBKeys;
-    if (_DBKeys.length > this.dbData.length) {
-      const value = await AsyncStorage.getItem(_DBKeys[_DBKeys.length - 1]);
+    for (const key of _DBKeys) {
+      const value = await AsyncStorage.getItem(key);
       await this.dbData.push(value);
-    } else if (_DBKeys.length < this.dbData.length) {
+    }
+    this.setState({
+      isLoading: true
+    });
+  };
+
+  _checkDeleteItem = async () => {
+    const _DBKeys = await AsyncStorage.getAllKeys();
+    this.dbKeys = _DBKeys;
+    if (this.dbData.length > _DBKeys.length) {
       this.dbData = [];
       for (const key of _DBKeys) {
-        let value = await AsyncStorage.getItem(key);
+        const value = await AsyncStorage.getItem(key);
         await this.dbData.push(value);
       }
     }

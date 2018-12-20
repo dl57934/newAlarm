@@ -124,7 +124,7 @@ export default class SetRepeat extends Component {
               [intervals[intervalIndex], intervalIndex],
               [repeats[repeatIndex], repeatIndex]
             );
-            navigation.goBack();
+            navigation.navigate("AddAlarm");
           }}
         >
           <Text style={{ fontSize: "30%", fontWeight: "600", color: "white" }}>

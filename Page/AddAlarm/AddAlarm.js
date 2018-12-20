@@ -36,7 +36,7 @@ export default class AddAlarm extends Component {
       setDaysOfWeek,
       daysOfWeek
     } = this.props;
-    console.log("AddAlarm", navigation.getParam("dbKey"));
+
     return (
       <View style={style.container}>
         <StatusBar hidden />
