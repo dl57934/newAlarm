@@ -141,7 +141,6 @@ const applySetItemsInitialState = (state, action) => {
     marked: true,
     selectedColor: "#00008C"
   };
-  console.log(getJsonData.calendar);
   return {
     settedDate: {
       ...jsonVariable

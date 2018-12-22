@@ -13,7 +13,7 @@ export default class SetRepeat extends Component {
   constructor(props) {
     super(props);
     const { repeatInterval } = this.props;
-    console.log(repeatInterval);
+
     this.state = {
       intervals: ["5", "10", "15", "30"],
       repeats: ["3", "5", "계속"],

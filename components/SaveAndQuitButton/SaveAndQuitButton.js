@@ -58,17 +58,23 @@ const SaveAndQuitButton = ({
 
           try {
             const keys = await AsyncStorage.getAllKeys();
-
+            let max = 0;
             if (editor) {
-              console.log(dbKey);
+              console.log("dbKey" + dbKey);
               await AsyncStorage.mergeItem(dbKey, savingData);
               setInitialState();
               navigation.navigate("Home", { reload: true });
             } else {
-              await AsyncStorage.setItem(
-                `${keys[keys.length - 1] + 1}`,
-                savingData
-              );
+              if (keys.length == 0) {
+                await AsyncStorage.setItem("0", savingData);
+              } else {
+                for (let i = 0; i < keys.length; i++) {
+                  if (Number(keys[i]) > max) {
+                    max = keys[i];
+                  }
+                }
+                await AsyncStorage.setItem(`${Number(max) + 1}`, savingData);
+              }
               setInitialState();
               navigation.navigate("Home", { reload: false });
             }

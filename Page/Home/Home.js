@@ -6,7 +6,8 @@ import {
   StyleSheet,
   StatusBar,
   AsyncStorage,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
@@ -85,6 +86,7 @@ class Home extends Component {
   _setNewDBData = async () => {
     const _DBKeys = await AsyncStorage.getAllKeys();
     this.dbKeys = _DBKeys;
+    console.log(_DBKeys);
     for (const key of _DBKeys) {
       const value = await AsyncStorage.getItem(key);
       await this.dbData.push(value);
