@@ -47,20 +47,27 @@ class Home extends Component {
         <View style={styles.upper}>
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
-        <View style={styles.middle}>
+        <ScrollView
+          ref="itemScrollView"
+          onScrollEndDrag={e => {
+            this.refs.itemScrollView.scrollTo({
+              x: 0,
+              y: e.nativeEvent.contentOffset.y
+            });
+          }}
+          scrollEventThrottle={16}
+        >
           {this.dbData.map((data, index) => {
             return (
-              <View>
-                <AlarmItem
-                  item={data}
-                  dbKey={this.dbKeys[index]}
-                  setItemsState={setItemsState}
-                  navigation={navigation}
-                />
-              </View>
+              <AlarmItem
+                item={data}
+                dbKey={this.dbKeys[index]}
+                setItemsState={setItemsState}
+                navigation={navigation}
+              />
             );
           })}
-        </View>
+        </ScrollView>
 
         <View style={styles.down}>
           <TouchableOpacity
@@ -86,7 +93,6 @@ class Home extends Component {
   _setNewDBData = async () => {
     const _DBKeys = await AsyncStorage.getAllKeys();
     this.dbKeys = _DBKeys;
-    console.log(_DBKeys);
     for (const key of _DBKeys) {
       const value = await AsyncStorage.getItem(key);
       await this.dbData.push(value);
@@ -147,7 +153,5 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white"
   },
-  middle: {
-    flex: 5
-  }
+  middle: {}
 });
