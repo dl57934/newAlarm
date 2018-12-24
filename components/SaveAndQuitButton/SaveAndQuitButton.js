@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, AsyncStorage } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-
+import RF from "react-native-responsive-fontsize";
 const _getTomorrow = () => {
   const tomorrowDate = new Date();
   return `${tomorrowDate.getFullYear()}-${tomorrowDate.getMonth() +
@@ -36,7 +36,7 @@ const SaveAndQuitButton = ({
           navigation.navigate("Home", { reload: false });
         }}
       >
-        <AntDesign name="back" size={40} style={{ color: "white" }} />
+        <AntDesign name="back" size={RF(4)} style={{ color: "white" }} />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
@@ -83,7 +83,7 @@ const SaveAndQuitButton = ({
           }
         }}
       >
-        <AntDesign name="check" size={40} style={{ color: "white" }} />
+        <AntDesign name="check" size={RF(4)} style={{ color: "white" }} />
       </TouchableOpacity>
     </View>
   );

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
+import { NativeModules } from "react-native";
 
 class Home extends Component {
   dbData = [];
@@ -39,8 +40,10 @@ class Home extends Component {
   _checkChange;
 
   render() {
+    const { RNMyLibraryModule } = NativeModules;
     const { navigation, setItemsState } = this.props;
     const { isLoading } = this.state;
+    console.log(RNMyLibraryModule);
     return isLoading ? (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -49,17 +52,17 @@ class Home extends Component {
         </View>
         <View style={{ height: "50%" }}>
           <ScrollView
-            ref="itemScrollView"
-            onScrollEndDrag={e => {
-              this.refs.itemScrollView.scrollTo({
-                x: 0,
-                y: e.nativeEvent.contentOffset.y
-              });
-            }}
-            scrollEventThrottle={16}
+          // ref="itemScrollView"
+          // onScrollEndDrag={e => {
+          //   this.refs.itemScrollView.scrollTo({
+          //     x: 0,
+          //     y: e.nativeEvent.contentOffset.y
+          //   });
+          // }}
+          // scrollEventThrottle={16}
           >
-            {this.dbData.map((data, index) => {
-              return (
+            {this.dbData.map((data, index) => (
+              <View>
                 <AlarmItem
                   item={data}
                   key={index}
@@ -67,8 +70,8 @@ class Home extends Component {
                   setItemsState={setItemsState}
                   navigation={navigation}
                 />
-              );
-            })}
+              </View>
+            ))}
           </ScrollView>
         </View>
         <View style={styles.down}>
