@@ -7,7 +7,8 @@ import {
   StatusBar,
   AsyncStorage,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  FlatList
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
@@ -40,10 +41,8 @@ class Home extends Component {
   _checkChange;
 
   render() {
-    const { RNMyLibraryModule } = NativeModules;
     const { navigation, setItemsState } = this.props;
     const { isLoading } = this.state;
-    console.log(RNMyLibraryModule);
     return isLoading ? (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -51,28 +50,23 @@ class Home extends Component {
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
         <View style={{ height: "50%" }}>
-          <ScrollView
-          // ref="itemScrollView"
-          // onScrollEndDrag={e => {
-          //   this.refs.itemScrollView.scrollTo({
-          //     x: 0,
-          //     y: e.nativeEvent.contentOffset.y
-          //   });
-          // }}
-          // scrollEventThrottle={16}
+          <FlatList
+            data={this.dbData}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <AlarmItem
+                item={item}
+                key={index}
+                dbKey={this.dbKeys[index]}
+                setItemsState={setItemsState}
+                navigation={navigation}
+              />
+            )}
           >
-            {this.dbData.map((data, index) => (
-              <View>
-                <AlarmItem
-                  item={data}
-                  key={index}
-                  dbKey={this.dbKeys[index]}
-                  setItemsState={setItemsState}
-                  navigation={navigation}
-                />
-              </View>
-            ))}
-          </ScrollView>
+            {/* {this.dbData.map((data, index) => (
+              
+            ))} */}
+          </FlatList>
         </View>
         <View style={styles.down}>
           <TouchableOpacity

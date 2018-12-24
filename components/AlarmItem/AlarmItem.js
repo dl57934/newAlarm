@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from "react-native";
-import Breadcrumb from "react-native-breadcrumb";
 import RF from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -45,82 +44,77 @@ export default class AlarmItem extends Component {
     const dayOfWeekResult =
       monday & tuesday & wednesday & thursday & friday & saturday & sunday;
     return (
-      <TouchableOpacity
-        style={{ marginBottom: "4%" }}
-        onLongPress={() => {
-          this.setState({
-            trashView: !this.state.trashView
-          });
-        }}
-        onPress={() => {
-          if (this.state.trashView) {
+      <View>
+        <TouchableOpacity
+          style={{ marginBottom: "4%" }}
+          onLongPress={() => {
             this.setState({
               trashView: !this.state.trashView
             });
-          } else {
-            setItemsState(item); // addAlarm 으로 들어가기
+          }}
+          onPress={() => {
+            if (this.state.trashView) {
+              this.setState({
+                trashView: !this.state.trashView
+              });
+            } else {
+              setItemsState(item); // addAlarm 으로 들어가기
 
-            navigation.navigate("AddAlarm", {
-              dbKey: dbKey,
-              editor: true
-            });
-          }
-        }}
-      >
-        <View style={style.data}>
-          <View
-            style={
-              this.state.trashView
-                ? {
-                    width: "90%",
-                    flexDirection: "row",
-                    justifyContent: "space-between"
-                  }
-                : {
-                    width: "100%",
-                    flexDirection: "row",
-                    justifyContent: "space-between"
-                  }
+              navigation.navigate("AddAlarm", {
+                dbKey: dbKey,
+                editor: true
+              });
             }
-          >
-            <View style={{ marginLeft: "3%" }}>
-              <Text style={style.time}>{time}</Text>
-              <Text style={style.title}>{title}</Text>
-            </View>
-            <View style={style.dateContainer}>
-              <Text style={style.date}>
-                {calendar.length !== 0
-                  ? calendar
-                  : selectedDateInfo.map((value, index) => {
-                      if (dayOfWeekResult && index === 0) {
-                        return "매일";
-                      } else if (value) {
-                        returnedDays += setDays[index] + ",";
-                      } else if (index == 6) {
-                        return returnedDays.substr(0, returnedDays.length - 1);
-                      }
-                    })}
-              </Text>
-            </View>
-          </View>
-          {this.state.trashView ? (
-            <TouchableOpacity
-              style={style.trashView}
-              onPress={async () => {
-                await AsyncStorage.removeItem(dbKey.toString());
-                this.setState({
-                  trashView: !this.state.trashView
-                });
-              }}
+          }}
+        >
+          <View style={style.data}>
+            <Fragment
+              style={
+                this.state.trashView ? { width: "90%" } : { width: "100%" }
+              }
             >
-              <FontAwesome name="trash-o" color="#fff" size="30%" />
-            </TouchableOpacity>
-          ) : (
-            undefined
-          )}
-        </View>
-        <View style={style.bottomLine} />
-      </TouchableOpacity>
+              <View style={{ marginLeft: "3%" }}>
+                <Text style={style.time}>{time}</Text>
+                <Text style={style.title}>{title}</Text>
+              </View>
+              <View style={style.dateContainer}>
+                <Text style={style.date}>
+                  {calendar.length !== 0
+                    ? calendar
+                    : selectedDateInfo.map((value, index) => {
+                        if (dayOfWeekResult && index === 0) {
+                          return "매일";
+                        } else if (value) {
+                          returnedDays += setDays[index] + ",";
+                        } else if (index == 6) {
+                          return returnedDays.substr(
+                            0,
+                            returnedDays.length - 1
+                          );
+                        }
+                      })}
+                </Text>
+              </View>
+            </Fragment>
+            {this.state.trashView ? (
+              <TouchableOpacity
+                style={style.trashView}
+                onPress={async () => {
+                  await AsyncStorage.removeItem(dbKey.toString());
+                  this.setState({
+                    trashView: !this.state.trashView
+                  });
+                }}
+              >
+                <FontAwesome name="trash-o" color="#fff" size={RF(3)} />
+              </TouchableOpacity>
+            ) : (
+              undefined
+            )}
+          </View>
+          <View style={style.bottomLine} />
+        </TouchableOpacity>
+      </View>
     );
   }
 }
