@@ -47,28 +47,30 @@ class Home extends Component {
         <View style={styles.upper}>
           <Text style={styles.upperText}>{this.state.time}</Text>
         </View>
-        <ScrollView
-          ref="itemScrollView"
-          onScrollEndDrag={e => {
-            this.refs.itemScrollView.scrollTo({
-              x: 0,
-              y: e.nativeEvent.contentOffset.y
-            });
-          }}
-          scrollEventThrottle={16}
-        >
-          {this.dbData.map((data, index) => {
-            return (
-              <AlarmItem
-                item={data}
-                dbKey={this.dbKeys[index]}
-                setItemsState={setItemsState}
-                navigation={navigation}
-              />
-            );
-          })}
-        </ScrollView>
-
+        <View style={{ height: "50%" }}>
+          <ScrollView
+            ref="itemScrollView"
+            onScrollEndDrag={e => {
+              this.refs.itemScrollView.scrollTo({
+                x: 0,
+                y: e.nativeEvent.contentOffset.y
+              });
+            }}
+            scrollEventThrottle={16}
+          >
+            {this.dbData.map((data, index) => {
+              return (
+                <AlarmItem
+                  item={data}
+                  key={index}
+                  dbKey={this.dbKeys[index]}
+                  setItemsState={setItemsState}
+                  navigation={navigation}
+                />
+              );
+            })}
+          </ScrollView>
+        </View>
         <View style={styles.down}>
           <TouchableOpacity
             onPress={() => navigation.navigate("AddAlarm", { editor: false })}

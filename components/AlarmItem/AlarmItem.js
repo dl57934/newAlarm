@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -68,8 +68,20 @@ export default class AlarmItem extends Component {
         }}
       >
         <View style={style.data}>
-          <Fragment
-            style={this.state.trashView ? { width: "90%" } : { width: "100%" }}
+          <View
+            style={
+              this.state.trashView
+                ? {
+                    width: "90%",
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                  }
+                : {
+                    width: "100%",
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                  }
+            }
           >
             <View style={{ marginLeft: "3%" }}>
               <Text style={style.time}>{time}</Text>
@@ -90,7 +102,7 @@ export default class AlarmItem extends Component {
                     })}
               </Text>
             </View>
-          </Fragment>
+          </View>
           {this.state.trashView ? (
             <TouchableOpacity
               style={style.trashView}
