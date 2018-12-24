@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
-import { NativeModules } from "react-native";
 
 class Home extends Component {
   dbData = [];
@@ -52,7 +51,6 @@ class Home extends Component {
         <View style={{ height: "50%" }}>
           <FlatList
             data={this.dbData}
-            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <AlarmItem
                 item={item}
