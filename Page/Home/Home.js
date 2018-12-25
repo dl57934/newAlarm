@@ -6,48 +6,30 @@ import {
   StyleSheet,
   StatusBar,
   AsyncStorage,
-  ActivityIndicator,
-  ScrollView,
   FlatList
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
+import PresentClock from "../../components/PresentClock";
 
 class Home extends Component {
   dbData = [];
   dbKeys = [];
 
-  setData = false;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false
-    };
-  }
-
   componentWillMount = async () => {
     this._setNewDBData();
-    this._stateTimerChange();
+    this._modifyTimerChange();
     setInterval(() => {
       this._checkDeleteItem();
     }, 2000);
-    setInterval(() => {
-      this._stateTimerChange();
-    }, 1000);
   };
-
-  _checkChange;
 
   render() {
     const { navigation, setItemsState } = this.props;
-    const { isLoading } = this.state;
-    return isLoading ? (
+    return (
       <View style={styles.container}>
         <StatusBar hidden />
-        <View style={styles.upper}>
-          <Text style={styles.upperText}>{this.state.time}</Text>
-        </View>
+        <PresentClock />
         <View style={{ height: "50%" }}>
           <FlatList
             data={this.dbData}
@@ -60,11 +42,7 @@ class Home extends Component {
                 navigation={navigation}
               />
             )}
-          >
-            {/* {this.dbData.map((data, index) => (
-              
-            ))} */}
-          </FlatList>
+          />
         </View>
         <View style={styles.down}>
           <TouchableOpacity
@@ -74,17 +52,7 @@ class Home extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    ) : (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#ffffff" />
-      </View>
     );
-  }
-
-  _stateTimerChange() {
-    this.setState({
-      time: this._getTime()
-    });
   }
 
   _setNewDBData = async () => {
@@ -94,9 +62,6 @@ class Home extends Component {
       const value = await AsyncStorage.getItem(key);
       await this.dbData.push(value);
     }
-    this.setState({
-      isLoading: true
-    });
   };
 
   _checkDeleteItem = async () => {
@@ -110,45 +75,19 @@ class Home extends Component {
       }
     }
   };
-
-  _getTime() {
-    let date = new Date();
-    let hours = date.getHours();
-    let minute = date.getMinutes();
-    hours > 12 ? (hours = hours - 12) : hours === 0 ? (hours = 12) : hours;
-    minute < 10 ? (minute = `0${minute}`) : minute;
-    return `${hours}:${minute}`;
-  }
 }
 
 export default Home;
 
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: "#a0a0a0",
-    justifyContent: "center",
-    alignItems: "center"
-  },
   container: {
     flex: 1,
     backgroundColor: "#00008C"
-  },
-  upper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40
   },
   down: {
     flex: 1,
     alignItems: "flex-end",
     marginRight: 20,
     marginBottom: 30
-  },
-  upperText: {
-    fontSize: 50,
-    color: "white"
-  },
-  middle: {}
+  }
 });
