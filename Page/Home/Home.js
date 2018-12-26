@@ -13,12 +13,11 @@ import AlarmItem from "../../components/AlarmItem";
 import PresentClock from "../../components/PresentClock";
 
 class Home extends Component {
-  dbData = [];
+  dbItem = [];
   dbKeys = [];
 
   componentWillMount = async () => {
     this._setNewDBData();
-    this._modifyTimerChange();
     setInterval(() => {
       this._checkDeleteItem();
     }, 2000);
@@ -32,7 +31,7 @@ class Home extends Component {
         <PresentClock />
         <View style={{ height: "50%" }}>
           <FlatList
-            data={this.dbData}
+            data={this.dbItem}
             renderItem={({ item, index }) => (
               <AlarmItem
                 item={item}
@@ -56,24 +55,24 @@ class Home extends Component {
   }
 
   _setNewDBData = async () => {
-    const _DBKeys = await AsyncStorage.getAllKeys();
-    this.dbKeys = _DBKeys;
-    for (const key of _DBKeys) {
-      const value = await AsyncStorage.getItem(key);
-      await this.dbData.push(value);
-    }
+    this.dbKeys = _getDBKeys();
+    for (const key of this.dbKeys) await this.dbData.push(_getDBItem(key));
   };
 
   _checkDeleteItem = async () => {
-    const _DBKeys = await AsyncStorage.getAllKeys();
-    this.dbKeys = _DBKeys;
-    if (this.dbData.length > _DBKeys.length) {
+    this.dbKeys = _getDBKeys();
+    if (this.dbData.length > this.dbKeys.length) {
       this.dbData = [];
-      for (const key of _DBKeys) {
-        const value = await AsyncStorage.getItem(key);
-        await this.dbData.push(value);
-      }
+      for (const key of this.dbKeys) await this.dbData.push(_getDBItem(key));
     }
+  };
+
+  _getDBItem = async key => {
+    return await AsyncStorage.getItem(key);
+  };
+
+  _getDBKeys = async () => {
+    return await AsyncStorage.getAllKeys();
   };
 }
 
