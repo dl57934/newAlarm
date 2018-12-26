@@ -23,9 +23,9 @@ export default class AlarmItem extends Component {
 
   render() {
     const { isCanTrash } = this.state;
-    const { item, dbKey, setReduceState, navigation } = this.props;
+    const { item, setReduceState, dbKey } = this.props;
     const { time, daysOfWeek, calendar, title } = JSON.parse(item);
-
+    this._resetSelectDays();
     return (
       <View>
         <TouchableOpacity
@@ -35,11 +35,8 @@ export default class AlarmItem extends Component {
             if (isCanTrash) {
               this._changeIsCanTrash();
             } else {
-              setReduceState(item); // addAlarm 으로 들어가기
-              navigation.navigate("AddAlarm", {
-                dbKey: dbKey,
-                editor: true
-              });
+              setReduceState(item);
+              this._goAlarmSetting(dbKey);
             }
           }}
         >
@@ -79,7 +76,7 @@ export default class AlarmItem extends Component {
               <TouchableOpacity
                 style={style.trashView}
                 onPress={async () => {
-                  await AsyncStorage.removeItem(dbKey.toString());
+                  await this._removeItem(dbKey.toString());
                   this._changeIsCanTrash();
                 }}
               >
@@ -94,6 +91,18 @@ export default class AlarmItem extends Component {
       </View>
     );
   }
+
+  _resetSelectDays = () => {
+    this.selectDays = "";
+  };
+
+  _goAlarmSetting = dbKey => {
+    const { navigation } = this.props;
+    navigation.navigate("AlarmSetting", {
+      dbKey: dbKey,
+      editor: true
+    });
+  };
 
   _changeIsCanTrash = () => {
     this.setState({
@@ -128,6 +137,9 @@ export default class AlarmItem extends Component {
       wednesday
     } = daysOfWeek;
     return monday & tuesday & wednesday & thursday & friday & saturday & sunday;
+  };
+  _removeItem = async dbKey => {
+    return await AsyncStorage.removeItem(dbKey);
   };
 }
 

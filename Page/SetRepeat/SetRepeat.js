@@ -10,6 +10,8 @@ import RF from "react-native-responsive-fontsize";
 import { CheckBox } from "react-native-elements";
 
 export default class SetRepeat extends Component {
+  CONTINUE_INDEX = 2;
+
   constructor(props) {
     super(props);
     const { repeatInterval } = this.props;
@@ -22,18 +24,6 @@ export default class SetRepeat extends Component {
       repeatIndex: repeatInterval.repeat[1],
       intervalIndex: repeatInterval.interval[1]
     };
-  }
-
-  _intervalCheck(intervalIndex) {
-    this.setState({
-      intervalIndex
-    });
-  }
-
-  _repeatCheck(repeatIndex) {
-    this.setState({
-      repeatIndex
-    });
   }
 
   render() {
@@ -105,7 +95,7 @@ export default class SetRepeat extends Component {
                   checkedColor="yellow"
                 />
                 <Text style={[Style.repeatItem, { marginBottom: "3%" }]}>
-                  {index === 2 ? repeat : `${repeat}회`}
+                  {index === this.CONTINUE_INDEX ? repeat : `${repeat}회`}
                 </Text>
               </TouchableOpacity>
               <View style={[Style.itemBottomLine, { marginBottom: "3%" }]} />
@@ -124,7 +114,7 @@ export default class SetRepeat extends Component {
               [intervals[intervalIndex], intervalIndex],
               [repeats[repeatIndex], repeatIndex]
             );
-            navigation.navigate("AddAlarm");
+            navigation.navigate("AlarmSetting");
           }}
         >
           <Text style={{ fontSize: "30%", fontWeight: "600", color: "white" }}>
@@ -133,6 +123,20 @@ export default class SetRepeat extends Component {
         </TouchableOpacity>
       </View>
     );
+  }
+
+  _goToReadAlarm() {}
+
+  _intervalCheck(intervalIndex) {
+    this.setState({
+      intervalIndex
+    });
+  }
+
+  _repeatCheck(repeatIndex) {
+    this.setState({
+      repeatIndex
+    });
   }
 }
 

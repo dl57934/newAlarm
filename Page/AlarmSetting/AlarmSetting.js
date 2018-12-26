@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Platform, StatusBar } from "react-native";
+import { View, Platform, StatusBar } from "react-native";
 import style from "./AlarmCss";
 import SetDaysButton from "../../components/SetDaysButton";
 import SaveAndQuitButton from "../../components/SaveAndQuitButton";
@@ -13,7 +13,7 @@ import SetRepeatButton from "../../components/SetRepeatButton";
 import SetTitle from "../../components/SetTitle";
 import SetVibrationButton from "../../components/SetVibrationButton";
 
-export default class AddAlarm extends Component {
+export default class AlarmSetting extends Component {
   render() {
     const {
       navigation,

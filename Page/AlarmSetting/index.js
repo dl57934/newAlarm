@@ -1,4 +1,4 @@
-import AddAlarm from "./AddAlarm";
+import AlarmSetting from "./AlarmSetting";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../reducer";
@@ -35,4 +35,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddAlarm);
+)(AlarmSetting);

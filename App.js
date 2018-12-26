@@ -1,5 +1,5 @@
 import Home from "./Page/Home";
-import AddAlarm from "./Page/AddAlarm";
+import AlarmSetting from "./Page/AlarmSetting";
 import SetRepeat from "./Page/SetRepeat";
 import React, { Component } from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
@@ -12,7 +12,7 @@ const store = createStore(reducer);
 const View = createSwitchNavigator(
   {
     Home: { screen: Home },
-    AddAlarm: { screen: AddAlarm },
+    AlarmSetting: { screen: AlarmSetting },
     SetRepeat: { screen: SetRepeat }
   },
   {
