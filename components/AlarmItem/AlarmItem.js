@@ -10,56 +10,32 @@ import RF from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
 
 export default class AlarmItem extends Component {
+  EMPTY_SIZE = 0;
+  FIRST_INDEX = 0;
+  LAST_INDEX = 6;
+  selectDays = "";
   constructor(props) {
     super(props);
     this.state = {
-      trashView: false
+      isCanTrash: false
     };
   }
 
   render() {
-    const { item, dbKey, setItemsState, navigation } = this.props;
+    const { isCanTrash } = this.state;
+    const { item, dbKey, setReduceState, navigation } = this.props;
     const { time, daysOfWeek, calendar, title } = JSON.parse(item);
 
-    const setDays = ["월", "화", "수", "목", "금", "토", "일"];
-    const {
-      monday,
-      friday,
-      saturday,
-      sunday,
-      tuesday,
-      thursday,
-      wednesday
-    } = daysOfWeek;
-    const selectedDateInfo = [
-      monday,
-      tuesday,
-      wednesday,
-      thursday,
-      friday,
-      saturday,
-      sunday
-    ];
-    let returnedDays = "";
-    const dayOfWeekResult =
-      monday & tuesday & wednesday & thursday & friday & saturday & sunday;
     return (
       <View>
         <TouchableOpacity
           style={{ marginBottom: "4%" }}
-          onLongPress={() => {
-            this.setState({
-              trashView: !this.state.trashView
-            });
-          }}
+          onLongPress={() => this._changeIsCanTrash()}
           onPress={() => {
-            if (this.state.trashView) {
-              this.setState({
-                trashView: !this.state.trashView
-              });
+            if (isCanTrash) {
+              this._changeIsCanTrash();
             } else {
-              setItemsState(item); // addAlarm 으로 들어가기
-
+              setReduceState(item); // addAlarm 으로 들어가기
               navigation.navigate("AddAlarm", {
                 dbKey: dbKey,
                 editor: true
@@ -79,31 +55,32 @@ export default class AlarmItem extends Component {
               </View>
               <View style={style.dateContainer}>
                 <Text style={style.date}>
-                  {calendar.length !== 0
+                  {calendar.length !== this.EMPTY_SIZE
                     ? calendar
-                    : selectedDateInfo.map((value, index) => {
-                        if (dayOfWeekResult && index === 0) {
+                    : this._getDays(daysOfWeek).map((value, index) => {
+                        if (
+                          this._isEveryDay(daysOfWeek) &&
+                          index === this.FIRST_INDEX
+                        ) {
                           return "매일";
                         } else if (value) {
-                          returnedDays += setDays[index] + ",";
-                        } else if (index == 6) {
-                          return returnedDays.substr(
+                          this.selectDays += this._getSelectDays(index) + ",";
+                        } else if (index == this.LAST_INDEX) {
+                          return this.selectDays.substr(
                             0,
-                            returnedDays.length - 1
+                            this.selectDays.length - 1
                           );
                         }
                       })}
                 </Text>
               </View>
             </Fragment>
-            {this.state.trashView ? (
+            {isCanTrash ? (
               <TouchableOpacity
                 style={style.trashView}
                 onPress={async () => {
                   await AsyncStorage.removeItem(dbKey.toString());
-                  this.setState({
-                    trashView: !this.state.trashView
-                  });
+                  this._changeIsCanTrash();
                 }}
               >
                 <FontAwesome name="trash-o" color="#fff" size={RF(3)} />
@@ -117,6 +94,41 @@ export default class AlarmItem extends Component {
       </View>
     );
   }
+
+  _changeIsCanTrash = () => {
+    this.setState({
+      isCanTrash: !this.state.isCanTrash
+    });
+  };
+  _getDays = daysOfWeek => {
+    const {
+      monday,
+      friday,
+      saturday,
+      sunday,
+      tuesday,
+      thursday,
+      wednesday
+    } = daysOfWeek;
+    return [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+  };
+
+  _getSelectDays = index => {
+    const setDays = ["월", "화", "수", "목", "금", "토", "일"];
+    return setDays[index];
+  };
+  _isEveryDay = daysOfWeek => {
+    const {
+      monday,
+      friday,
+      saturday,
+      sunday,
+      tuesday,
+      thursday,
+      wednesday
+    } = daysOfWeek;
+    return monday & tuesday & wednesday & thursday & friday & saturday & sunday;
+  };
 }
 
 const style = StyleSheet.create({

@@ -17,14 +17,14 @@ class Home extends Component {
   dbKeys = [];
 
   componentWillMount = async () => {
-    this._setNewDBData();
+    await this._setNewDB();
     setInterval(() => {
       this._checkDeleteItem();
     }, 2000);
   };
 
   render() {
-    const { navigation, setItemsState } = this.props;
+    const { navigation, setReduceState } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar hidden />
@@ -37,7 +37,7 @@ class Home extends Component {
                 item={item}
                 key={index}
                 dbKey={this.dbKeys[index]}
-                setItemsState={setItemsState}
+                setReduceState={setReduceState}
                 navigation={navigation}
               />
             )}
@@ -54,16 +54,18 @@ class Home extends Component {
     );
   }
 
-  _setNewDBData = async () => {
-    this.dbKeys = _getDBKeys();
-    for (const key of this.dbKeys) await this.dbData.push(_getDBItem(key));
+  _setNewDB = async () => {
+    this.dbKeys = await this._getDBKeys();
+    for (const key of this.dbKeys)
+      await this.dbItem.push(await this._getDBItem(key));
   };
 
   _checkDeleteItem = async () => {
-    this.dbKeys = _getDBKeys();
-    if (this.dbData.length > this.dbKeys.length) {
-      this.dbData = [];
-      for (const key of this.dbKeys) await this.dbData.push(_getDBItem(key));
+    this.dbKeys = await this._getDBKeys();
+    if (this.dbItem.length > this.dbKeys.length) {
+      this.dbItem = [];
+      for (const key of this.dbKeys)
+        await this.dbItem.push(await this._getDBItem(key));
     }
   };
 
