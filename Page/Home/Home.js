@@ -6,33 +6,33 @@ import {
   StyleSheet,
   StatusBar,
   AsyncStorage,
-  FlatList
+  ScrollView
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AlarmItem from "../../components/AlarmItem";
 import PresentClock from "../../components/PresentClock";
 
-class Home extends Component {
+export default class Home extends Component {
   dbItem = [];
   dbKeys = [];
 
   componentWillMount = async () => {
-    await this._setNewDB();
     setInterval(() => {
       this._checkDeleteItem();
     }, 2000);
+    await this._setNewDB();
   };
 
   render() {
     const { navigation, setReduceState } = this.props;
+
     return (
       <View style={styles.container}>
         <StatusBar hidden />
         <PresentClock />
         <View style={{ height: "50%" }}>
-          <FlatList
-            data={this.dbItem}
-            renderItem={({ item, index }) => (
+          <ScrollView>
+            {this.dbItem.map((item, index) => (
               <AlarmItem
                 item={item}
                 key={index}
@@ -40,8 +40,8 @@ class Home extends Component {
                 setReduceState={setReduceState}
                 navigation={navigation}
               />
-            )}
-          />
+            ))}
+          </ScrollView>
         </View>
         <View style={styles.down}>
           <TouchableOpacity
@@ -56,19 +56,31 @@ class Home extends Component {
     );
   }
 
+  _refresh() {
+    this.setState({});
+  }
+
+  _resetDBItem = () => {
+    this.dbItem = [];
+  };
+
   _setNewDB = async () => {
     this.dbKeys = await this._getDBKeys();
-    for (const key of this.dbKeys)
-      await this.dbItem.push(await this._getDBItem(key));
+    for (const key of this.dbKeys) await this._setDBItem(key);
+    this._refresh();
   };
 
   _checkDeleteItem = async () => {
     this.dbKeys = await this._getDBKeys();
     if (this.dbItem.length > this.dbKeys.length) {
-      this.dbItem = [];
-      for (const key of this.dbKeys)
-        await this.dbItem.push(await this._getDBItem(key));
+      this._resetDBItem();
+      for (const key of this.dbKeys) this._setDBItem(key);
+      this._refresh();
     }
+  };
+
+  _setDBItem = async key => {
+    return await this.dbItem.push(await this._getDBItem(key));
   };
 
   _getDBItem = async key => {
@@ -79,8 +91,6 @@ class Home extends Component {
     return await AsyncStorage.getAllKeys();
   };
 }
-
-export default Home;
 
 const styles = StyleSheet.create({
   container: {
